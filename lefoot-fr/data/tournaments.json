@@ -1,0 +1,141 @@
+[
+  {
+    "id": "ligue-1",
+    "name": "Ligue 1",
+    "category": "Domestique",
+    "startDate": "2025-08-15",
+    "endDate": "2026-05-20",
+    "host": "France",
+    "image": "https://images.unsplash.com/photo-1459865264687-595d652de67e?w=800&h=500&fit=crop",
+    "standings": [
+      { "position": 1, "team": "PSG", "points": 89, "played": 38, "won": 28, "drawn": 5, "lost": 5, "goalDifference": 52, "form": ["W", "W", "W", "D", "W"] },
+      { "position": 2, "team": "OM", "points": 72, "played": 38, "won": 21, "drawn": 9, "lost": 8, "goalDifference": 24, "form": ["W", "D", "W", "W", "L"] },
+      { "position": 3, "team": "Monaco", "points": 68, "played": 38, "won": 20, "drawn": 8, "lost": 10, "goalDifference": 18, "form": ["W", "W", "L", "W", "D"] },
+      { "position": 4, "team": "Lyon", "points": 65, "played": 38, "won": 19, "drawn": 8, "lost": 11, "goalDifference": 12, "form": ["D", "W", "W", "L", "W"] },
+      { "position": 5, "team": "Lille", "points": 62, "played": 38, "won": 18, "drawn": 8, "lost": 12, "goalDifference": 8, "form": ["L", "W", "D", "W", "W"] }
+    ],
+    "topScorers": [
+      { "rank": 1, "player": "Kylian Mbappé", "club": "PSG", "goals": 28 },
+      { "rank": 2, "player": "Alexandre Lacazette", "club": "Lyon", "goals": 19 },
+      { "rank": 3, "player": "Jonathan David", "club": "Lille", "goals": 17 },
+      { "rank": 4, "player": "Wissam Ben Yedder", "club": "Monaco", "goals": 15 },
+      { "rank": 5, "player": "Pierre-Emerick Aubameyang", "club": "OM", "goals": 14 }
+    ]
+  },
+  {
+    "id": "ligue-2",
+    "name": "Ligue 2",
+    "category": "Domestique",
+    "startDate": "2025-08-10",
+    "endDate": "2026-05-18",
+    "host": "France",
+    "image": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&h=500&fit=crop",
+    "standings": [
+      { "position": 1, "team": "Saint-Étienne", "points": 78, "played": 38, "won": 23, "drawn": 9, "lost": 6, "goalDifference": 30, "form": ["W", "W", "D", "W", "W"] },
+      { "position": 2, "team": "Auxerre", "points": 74, "played": 38, "won": 22, "drawn": 8, "lost": 8, "goalDifference": 22, "form": ["W", "L", "W", "W", "D"] },
+      { "position": 3, "team": "Angers", "points": 70, "played": 38, "won": 20, "drawn": 10, "lost": 8, "goalDifference": 15, "form": ["D", "W", "W", "L", "W"] }
+    ],
+    "topScorers": [
+      { "rank": 1, "player": "Lassine Sinayoko", "club": "Auxerre", "goals": 18 },
+      { "rank": 2, "player": "Ibrahim Salah", "club": "Saint-Étienne", "goals": 16 }
+    ]
+  },
+  {
+    "id": "coupe-de-france",
+    "name": "Coupe de France",
+    "category": "Domestique",
+    "startDate": "2025-11-01",
+    "endDate": "2026-05-25",
+    "host": "France",
+    "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop",
+    "standings": [],
+    "topScorers": [
+      { "rank": 1, "player": "Ousmane Dembélé", "club": "PSG", "goals": 7 },
+      { "rank": 2, "player": "Jonathan David", "club": "Lille", "goals": 5 }
+    ]
+  },
+  {
+    "id": "champions-league",
+    "name": "Champions League",
+    "category": "Continental",
+    "startDate": "2025-09-17",
+    "endDate": "2026-05-20",
+    "host": "Europe",
+    "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop",
+    "standings": [
+      { "position": 1, "team": "PSG", "points": 16, "played": 6, "won": 5, "drawn": 1, "lost": 0, "goalDifference": 12, "form": ["W", "W", "D", "W", "W"] },
+      { "position": 2, "team": "Bayern", "points": 13, "played": 6, "won": 4, "drawn": 1, "lost": 1, "goalDifference": 8, "form": ["W", "L", "W", "W", "D"] },
+      { "position": 3, "team": "Man City", "points": 12, "played": 6, "won": 4, "drawn": 0, "lost": 2, "goalDifference": 5, "form": ["W", "W", "L", "W", "L"] },
+      { "position": 4, "team": "Real Madrid", "points": 9, "played": 6, "won": 3, "drawn": 0, "lost": 3, "goalDifference": -2, "form": ["L", "W", "L", "W", "L"] }
+    ],
+    "topScorers": [
+      { "rank": 1, "player": "Erling Haaland", "club": "Man City", "goals": 12 },
+      { "rank": 2, "player": "Kylian Mbappé", "club": "PSG", "goals": 11 },
+      { "rank": 3, "player": "Harry Kane", "club": "Bayern", "goals": 9 }
+    ]
+  },
+  {
+    "id": "europa-league",
+    "name": "Europa League",
+    "category": "Continental",
+    "startDate": "2025-09-25",
+    "endDate": "2026-05-22",
+    "host": "Europe",
+    "image": "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800&h=500&fit=crop",
+    "standings": [
+      { "position": 1, "team": "Lille", "points": 15, "played": 6, "won": 5, "drawn": 0, "lost": 1, "goalDifference": 10, "form": ["W", "W", "W", "L", "W"] },
+      { "position": 2, "team": "OM", "points": 12, "played": 6, "won": 4, "drawn": 0, "lost": 2, "goalDifference": 6, "form": ["W", "L", "W", "W", "L"] }
+    ],
+    "topScorers": [
+      { "rank": 1, "player": "Jonathan David", "club": "Lille", "goals": 8 },
+      { "rank": 2, "player": "Pierre-Emerick Aubameyang", "club": "OM", "goals": 6 }
+    ]
+  },
+  {
+    "id": "can",
+    "name": "Coupe d'Afrique des Nations",
+    "category": "Continental",
+    "startDate": "2025-12-21",
+    "endDate": "2026-01-18",
+    "host": "Maroc",
+    "image": "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=800&h=500&fit=crop",
+    "standings": [
+      { "position": 1, "team": "Sénégal", "points": 9, "played": 3, "won": 3, "drawn": 0, "lost": 0, "goalDifference": 5, "form": ["W", "W", "W"] },
+      { "position": 2, "team": "Côte d'Ivoire", "points": 6, "played": 3, "won": 2, "drawn": 0, "lost": 1, "goalDifference": 2, "form": ["W", "L", "W"] },
+      { "position": 3, "team": "Cameroun", "points": 3, "played": 3, "won": 1, "drawn": 0, "lost": 2, "goalDifference": -1, "form": ["L", "W", "L"] }
+    ],
+    "topScorers": [
+      { "rank": 1, "player": "Sadio Mané", "club": "Sénégal", "goals": 5 },
+      { "rank": 2, "player": "Sébastien Haller", "club": "Côte d'Ivoire", "goals": 4 }
+    ]
+  },
+  {
+    "id": "afcon-2026",
+    "name": "AFCON 2026",
+    "category": "International",
+    "startDate": "2026-12-01",
+    "endDate": "2027-01-18",
+    "host": "Guinée équatoriale / Gabon / Nigeria",
+    "image": "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=800&h=500&fit=crop",
+    "standings": [],
+    "topScorers": []
+  },
+  {
+    "id": "nations-league",
+    "name": "Ligue des Nations",
+    "category": "International",
+    "startDate": "2025-09-05",
+    "endDate": "2026-06-08",
+    "host": "Europe",
+    "image": "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&h=500&fit=crop",
+    "standings": [
+      { "position": 1, "team": "France", "points": 9, "played": 4, "won": 3, "drawn": 0, "lost": 1, "goalDifference": 5, "form": ["W", "W", "L", "W"] },
+      { "position": 2, "team": "Espagne", "points": 7, "played": 4, "won": 2, "drawn": 1, "lost": 1, "goalDifference": 3, "form": ["D", "W", "W", "L"] },
+      { "position": 3, "team": "Portugal", "points": 4, "played": 4, "won": 1, "drawn": 1, "lost": 2, "goalDifference": -2, "form": ["L", "D", "W", "L"] }
+    ],
+    "topScorers": [
+      { "rank": 1, "player": "Kylian Mbappé", "club": "France", "goals": 4 },
+      { "rank": 2, "player": "Lamine Yamal", "club": "Espagne", "goals": 3 }
+    ]
+  }
+]

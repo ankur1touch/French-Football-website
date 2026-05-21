@@ -1,0 +1,115 @@
+[
+  {
+    "id": "france",
+    "name": "France",
+    "confederation": "UEFA",
+    "image": "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=400&fit=crop",
+    "coach": "Didier Deschamps",
+    "squad": [
+      { "id": "p1", "name": "Kylian Mbappé", "position": "Attaquant", "club": "PSG", "age": 27 },
+      { "id": "p2", "name": "Antoine Griezmann", "position": "Attaquant", "club": "Atlético Madrid", "age": 35 },
+      { "id": "p3", "name": "Aurélien Tchouaméni", "position": "Milieu", "club": "Real Madrid", "age": 26 },
+      { "id": "p4", "name": "William Saliba", "position": "Défenseur", "club": "Arsenal", "age": 25 },
+      { "id": "p5", "name": "Mike Maignan", "position": "Gardien", "club": "AC Milan", "age": 30 }
+    ],
+    "stats": { "played": 10, "won": 7, "drawn": 2, "lost": 1, "goalsFor": 22, "goalsAgainst": 8 },
+    "form": ["W", "W", "D", "W", "L"]
+  },
+  {
+    "id": "senegal",
+    "name": "Sénégal",
+    "confederation": "CAF",
+    "image": "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400&h=400&fit=crop",
+    "coach": "Aliou Cissé",
+    "squad": [
+      { "id": "p6", "name": "Sadio Mané", "position": "Attaquant", "club": "Al-Nassr", "age": 33 },
+      { "id": "p7", "name": "Kalidou Koulibaly", "position": "Défenseur", "club": "Al-Hilal", "age": 34 },
+      { "id": "p8", "name": "Édouard Mendy", "position": "Gardien", "club": "Al-Ahli", "age": 33 }
+    ],
+    "stats": { "played": 8, "won": 6, "drawn": 1, "lost": 1, "goalsFor": 15, "goalsAgainst": 5 },
+    "form": ["W", "W", "W", "D", "W"]
+  },
+  {
+    "id": "cote-ivoire",
+    "name": "Côte d'Ivoire",
+    "confederation": "CAF",
+    "image": "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400&h=400&fit=crop",
+    "coach": "Emerse Fae",
+    "squad": [
+      { "id": "p9", "name": "Sébastien Haller", "position": "Attaquant", "club": "Borussia Dortmund", "age": 31 },
+      { "id": "p10", "name": "Franck Kessié", "position": "Milieu", "club": "Al-Ahli", "age": 29 },
+      { "id": "p11", "name": "Nicolas Pépé", "position": "Attaquant", "club": "Trabzonspor", "age": 30 }
+    ],
+    "stats": { "played": 8, "won": 5, "drawn": 2, "lost": 1, "goalsFor": 14, "goalsAgainst": 7 },
+    "form": ["W", "D", "W", "W", "L"]
+  },
+  {
+    "id": "cameroun",
+    "name": "Cameroun",
+    "confederation": "CAF",
+    "image": "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400&h=400&fit=crop",
+    "coach": "Marc Brys",
+    "squad": [
+      { "id": "p12", "name": "André-Frank Zambo Anguissa", "position": "Milieu", "club": "Napoli", "age": 29 },
+      { "id": "p13", "name": "Bryan Mbeumo", "position": "Attaquant", "club": "Brentford", "age": 26 }
+    ],
+    "stats": { "played": 8, "won": 4, "drawn": 2, "lost": 2, "goalsFor": 11, "goalsAgainst": 9 },
+    "form": ["L", "W", "D", "W", "L"]
+  },
+  {
+    "id": "espagne",
+    "name": "Espagne",
+    "confederation": "UEFA",
+    "image": "https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=400&fit=crop",
+    "coach": "Luis de la Fuente",
+    "squad": [
+      { "id": "p14", "name": "Lamine Yamal", "position": "Attaquant", "club": "Barcelone", "age": 18 },
+      { "id": "p15", "name": "Pedri", "position": "Milieu", "club": "Barcelone", "age": 23 },
+      { "id": "p16", "name": "Unai Simón", "position": "Gardien", "club": "Athletic Bilbao", "age": 28 }
+    ],
+    "stats": { "played": 10, "won": 8, "drawn": 1, "lost": 1, "goalsFor": 25, "goalsAgainst": 6 },
+    "form": ["W", "W", "W", "D", "W"]
+  },
+  {
+    "id": "bresil",
+    "name": "Brésil",
+    "confederation": "CONMEBOL",
+    "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop",
+    "coach": "Dorival Júnior",
+    "squad": [
+      { "id": "p17", "name": "Vinícius Jr", "position": "Attaquant", "club": "Real Madrid", "age": 25 },
+      { "id": "p18", "name": "Rodrygo", "position": "Attaquant", "club": "Real Madrid", "age": 24 },
+      { "id": "p19", "name": "Alisson", "position": "Gardien", "club": "Liverpool", "age": 33 }
+    ],
+    "stats": { "played": 10, "won": 6, "drawn": 2, "lost": 2, "goalsFor": 18, "goalsAgainst": 10 },
+    "form": ["W", "L", "W", "D", "W"]
+  },
+  {
+    "id": "argentine",
+    "name": "Argentine",
+    "confederation": "CONMEBOL",
+    "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=400&fit=crop",
+    "coach": "Lionel Scaloni",
+    "squad": [
+      { "id": "p20", "name": "Lionel Messi", "position": "Attaquant", "club": "Inter Miami", "age": 39 },
+      { "id": "p21", "name": "Lautaro Martínez", "position": "Attaquant", "club": "Inter Milan", "age": 28 },
+      { "id": "p22", "name": "Emiliano Martínez", "position": "Gardien", "club": "Aston Villa", "age": 33 }
+    ],
+    "stats": { "played": 10, "won": 7, "drawn": 2, "lost": 1, "goalsFor": 20, "goalsAgainst": 7 },
+    "form": ["W", "W", "D", "W", "W"]
+  },
+  {
+    "id": "maroc",
+    "name": "Maroc",
+    "confederation": "CAF",
+    "image": "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400&h=400&fit=crop",
+    "coach": "Walid Regragui",
+    "squad": [
+      { "id": "p23", "name": "Achraf Hakimi", "position": "Défenseur", "club": "PSG", "age": 27 },
+      { "id": "p24", "name": "Sofyan Amrabat", "position": "Milieu", "club": "Manchester United", "age": 29 },
+      { "id": "p25", "name": "Youssef En-Nesyri", "position": "Attaquant", "club": "Fenerbahçe", "age": 28 }
+    ],
+    "stats": { "played": 8, "won": 5, "drawn": 2, "lost": 1, "goalsFor": 13, "goalsAgainst": 6 },
+    "form": ["W", "D", "W", "L", "W"]
+  }
+]

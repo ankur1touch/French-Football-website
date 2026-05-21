@@ -1,0 +1,17 @@
+[
+  { "id": "t1", "player": "Kylian Mbappé", "from": "PSG", "to": "Manchester City", "fee": "€95M", "status": "Rumeur", "window": "Été" },
+  { "id": "t2", "player": "Jonathan David", "from": "Lille", "to": "Juventus", "fee": "€45M", "status": "Officiel", "window": "Été" },
+  { "id": "t3", "player": "Ousmane Dembélé", "from": "PSG", "to": "Barcelone", "fee": "€60M", "status": "Rumeur", "window": "Été" },
+  { "id": "t4", "player": "Warren Zaïre-Emery", "from": "PSG", "to": "Real Madrid", "fee": "€80M", "status": "Rumeur", "window": "Été" },
+  { "id": "t5", "player": "Alexis Mac Allister", "from": "Liverpool", "to": "PSG", "fee": "€70M", "status": "Rumeur", "window": "Été" },
+  { "id": "t6", "player": "Randal Kolo Muani", "from": "PSG", "to": "Manchester United", "fee": "€55M", "status": "Rumeur", "window": "Été" },
+  { "id": "t7", "player": "Vitinha", "from": "PSG", "to": "Barcelone", "fee": "€50M", "status": "Rumeur", "window": "Été" },
+  { "id": "t8", "player": "Pierre-Emerick Aubameyang", "from": "OM", "to": "Al-Qadsiah", "fee": "€15M", "status": "Officiel", "window": "Été" },
+  { "id": "t9", "player": "Wissam Ben Yedder", "from": "Monaco", "to": "Al-Ahli", "fee": "€20M", "status": "Officiel", "window": "Été" },
+  { "id": "t10", "player": "Lucas Hernandez", "from": "PSG", "to": "Atlético Madrid", "fee": "€35M", "status": "Rumeur", "window": "Été" },
+  { "id": "t11", "player": "Mattéo Guendouzi", "from": "Lazio", "to": "OM", "fee": "€25M", "status": "Officiel", "window": "Hiver" },
+  { "id": "t12", "player": "Mason Greenwood", "from": "Manchester United", "to": "OM", "fee": "€30M", "status": "Officiel", "window": "Hiver" },
+  { "id": "t13", "player": "Folarin Balogun", "from": "Monaco", "to": "Marseille", "fee": "€28M", "status": "Rumeur", "window": "Hiver" },
+  { "id": "t14", "player": "Bradley Barcola", "from": "Lyon", "to": "PSG", "fee": "€40M", "status": "Officiel", "window": "Hiver" },
+  { "id": "t15", "player": "Leny Yoro", "from": "Lille", "to": "Manchester United", "fee": "€52M", "status": "Officiel", "window": "Été" }
+]

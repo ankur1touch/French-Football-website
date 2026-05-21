@@ -1,0 +1,26 @@
+# Dependencies & build (Next.js app)
+lefoot-fr/node_modules/
+lefoot-fr/.next/
+lefoot-fr/out/
+lefoot-fr/.vercel/
+lefoot-fr/.pnp
+lefoot-fr/.pnp.*
+lefoot-fr/coverage/
+lefoot-fr/build/
+
+# Environment & secrets
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Logs & OS
+*.log
+.DS_Store
+Thumbs.db
+
+# IDE / editor
+.cursor/
+.vscode/
+
+# TypeScript
+lefoot-fr/*.tsbuildinfo

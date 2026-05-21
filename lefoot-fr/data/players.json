@@ -1,0 +1,112 @@
+[
+  {
+    "id": "mbappe",
+    "name": "Kylian Mbappé",
+    "position": "Attaquant",
+    "nationality": "France",
+    "club": "PSG",
+    "age": 27,
+    "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=500&fit=crop",
+    "stats": { "appearances": 320, "goals": 258, "assists": 98, "yellowCards": 45, "redCards": 2 },
+    "bio": "Kylian Mbappé est l'un des meilleurs attaquants du monde. Champion du monde 2018 avec la France, il a remporté de nombreux titres avec le PSG."
+  },
+  {
+    "id": "dembele",
+    "name": "Ousmane Dembélé",
+    "position": "Attaquant",
+    "nationality": "France",
+    "club": "PSG",
+    "age": 28,
+    "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=500&fit=crop",
+    "stats": { "appearances": 280, "goals": 72, "assists": 85, "yellowCards": 38, "redCards": 1 },
+    "bio": "Ousmane Dembélé est un ailier rapide et technique, champion du monde 2018 et figure clé du PSG."
+  },
+  {
+    "id": "tchouameni",
+    "name": "Aurélien Tchouaméni",
+    "position": "Milieu",
+    "nationality": "France",
+    "club": "Real Madrid",
+    "age": 26,
+    "image": "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=500&fit=crop",
+    "stats": { "appearances": 210, "goals": 12, "assists": 18, "yellowCards": 52, "redCards": 3 },
+    "bio": "Milieu défensif français formé à Monaco, Aurélien Tchouaméni évolue au Real Madrid depuis 2022."
+  },
+  {
+    "id": "saliba",
+    "name": "William Saliba",
+    "position": "Défenseur",
+    "nationality": "France",
+    "club": "Arsenal",
+    "age": 25,
+    "image": "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=500&fit=crop",
+    "stats": { "appearances": 180, "goals": 8, "assists": 3, "yellowCards": 28, "redCards": 1 },
+    "bio": "William Saliba est l'un des meilleurs défenseurs centraux de la Premier League avec Arsenal."
+  },
+  {
+    "id": "maignan",
+    "name": "Mike Maignan",
+    "position": "Gardien",
+    "nationality": "France",
+    "club": "AC Milan",
+    "age": 30,
+    "image": "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=500&fit=crop",
+    "stats": { "appearances": 250, "goals": 0, "assists": 1, "yellowCards": 12, "redCards": 0 },
+    "bio": "Gardien titulaire de l'AC Milan et de l'équipe de France, Mike Maignan est reconnu pour ses réflexes."
+  },
+  {
+    "id": "david",
+    "name": "Jonathan David",
+    "position": "Attaquant",
+    "nationality": "Canada",
+    "club": "Lille",
+    "age": 26,
+    "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=500&fit=crop",
+    "stats": { "appearances": 200, "goals": 95, "assists": 22, "yellowCards": 18, "redCards": 0 },
+    "bio": "Jonathan David est le meilleur buteur du LOSC et l'un des attaquants les plus prolifiques de Ligue 1."
+  },
+  {
+    "id": "aubameyang",
+    "name": "Pierre-Emerick Aubameyang",
+    "position": "Attaquant",
+    "nationality": "Gabon",
+    "club": "OM",
+    "age": 36,
+    "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=500&fit=crop",
+    "stats": { "appearances": 450, "goals": 220, "assists": 55, "yellowCards": 40, "redCards": 2 },
+    "bio": "Vétéran buteur gabonais, Aubameyang a rejoint l'OM et continue d'être décisif en Ligue 1."
+  },
+  {
+    "id": "ben-yedder",
+    "name": "Wissam Ben Yedder",
+    "position": "Attaquant",
+    "nationality": "France",
+    "club": "Monaco",
+    "age": 35,
+    "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=500&fit=crop",
+    "stats": { "appearances": 380, "goals": 175, "assists": 48, "yellowCards": 35, "redCards": 1 },
+    "bio": "Wissam Ben Yedder est un finisseur de classe mondiale, pilier offensif de l'AS Monaco."
+  },
+  {
+    "id": "mane",
+    "name": "Sadio Mané",
+    "position": "Attaquant",
+    "nationality": "Sénégal",
+    "club": "Al-Nassr",
+    "age": 33,
+    "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=500&fit=crop",
+    "stats": { "appearances": 420, "goals": 180, "assists": 90, "yellowCards": 55, "redCards": 3 },
+    "bio": "Légende du Sénégal et ancien joueur de Liverpool, Sadio Mané est une icône du football africain."
+  },
+  {
+    "id": "hakimi",
+    "name": "Achraf Hakimi",
+    "position": "Défenseur",
+    "nationality": "Maroc",
+    "club": "PSG",
+    "age": 27,
+    "image": "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=400&h=500&fit=crop",
+    "stats": { "appearances": 280, "goals": 35, "assists": 55, "yellowCards": 42, "redCards": 2 },
+    "bio": "Arrière droit marocain du PSG, Achraf Hakimi est l'un des latéraux les plus complets du monde."
+  }
+]

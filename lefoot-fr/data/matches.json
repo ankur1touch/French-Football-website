@@ -1,0 +1,167 @@
+[
+  {
+    "id": "m1",
+    "homeTeam": "PSG",
+    "awayTeam": "BvB",
+    "homeScore": 4,
+    "awayScore": 2,
+    "status": "live",
+    "competition": "Champions League",
+    "date": "2026-05-20T20:00:00Z",
+    "venue": "Wembley"
+  },
+  {
+    "id": "m2",
+    "homeTeam": "OM",
+    "awayTeam": "Lyon",
+    "homeScore": 1,
+    "awayScore": 1,
+    "status": "live",
+    "competition": "Ligue 1",
+    "date": "2026-05-20T19:00:00Z",
+    "venue": "Stade Vélodrome"
+  },
+  {
+    "id": "m3",
+    "homeTeam": "Monaco",
+    "awayTeam": "Rennes",
+    "homeScore": 2,
+    "awayScore": 0,
+    "status": "live",
+    "competition": "Ligue 1",
+    "date": "2026-05-20T19:00:00Z",
+    "venue": "Stade Louis II"
+  },
+  {
+    "id": "m4",
+    "homeTeam": "Nice",
+    "awayTeam": "Lens",
+    "homeScore": 3,
+    "awayScore": 1,
+    "status": "live",
+    "competition": "Ligue 1",
+    "date": "2026-05-20T19:00:00Z",
+    "venue": "Allianz Riviera"
+  },
+  {
+    "id": "m5",
+    "homeTeam": "PSG",
+    "awayTeam": "Bayern",
+    "homeScore": null,
+    "awayScore": null,
+    "status": "upcoming",
+    "competition": "Champions League",
+    "date": "2026-05-24T20:00:00Z",
+    "venue": "Parc des Princes"
+  },
+  {
+    "id": "m6",
+    "homeTeam": "OM",
+    "awayTeam": "Lille",
+    "homeScore": null,
+    "awayScore": null,
+    "status": "upcoming",
+    "competition": "Ligue 1",
+    "date": "2026-05-25T19:00:00Z",
+    "venue": "Stade Vélodrome"
+  },
+  {
+    "id": "m7",
+    "homeTeam": "Monaco",
+    "awayTeam": "PSG",
+    "homeScore": null,
+    "awayScore": null,
+    "status": "upcoming",
+    "competition": "Ligue 1",
+    "date": "2026-05-26T20:00:00Z",
+    "venue": "Stade Louis II"
+  },
+  {
+    "id": "m8",
+    "homeTeam": "Lyon",
+    "awayTeam": "Rennes",
+    "homeScore": 2,
+    "awayScore": 1,
+    "status": "finished",
+    "competition": "Ligue 1",
+    "date": "2026-05-18T19:00:00Z",
+    "venue": "Groupama Stadium"
+  },
+  {
+    "id": "m9",
+    "homeTeam": "Lille",
+    "awayTeam": "Nice",
+    "homeScore": 0,
+    "awayScore": 2,
+    "status": "finished",
+    "competition": "Ligue 1",
+    "date": "2026-05-17T19:00:00Z",
+    "venue": "Stade Pierre-Mauroy"
+  },
+  {
+    "id": "m10",
+    "homeTeam": "Real Madrid",
+    "awayTeam": "Barcelone",
+    "homeScore": 1,
+    "awayScore": 3,
+    "status": "finished",
+    "competition": "La Liga",
+    "date": "2026-05-17T20:00:00Z",
+    "venue": "Santiago Bernabéu"
+  },
+  {
+    "id": "m11",
+    "homeTeam": "Inter",
+    "awayTeam": "Milan",
+    "homeScore": 2,
+    "awayScore": 1,
+    "status": "finished",
+    "competition": "Serie A",
+    "date": "2026-05-16T20:00:00Z",
+    "venue": "San Siro"
+  },
+  {
+    "id": "m12",
+    "homeTeam": "Lens",
+    "awayTeam": "Brest",
+    "homeScore": null,
+    "awayScore": null,
+    "status": "upcoming",
+    "competition": "Ligue 1",
+    "date": "2026-05-27T19:00:00Z",
+    "venue": "Stade Bollaert"
+  },
+  {
+    "id": "m13",
+    "homeTeam": "Lyon",
+    "awayTeam": "PSG",
+    "homeScore": null,
+    "awayScore": null,
+    "status": "upcoming",
+    "competition": "Ligue 1",
+    "date": "2026-05-28T20:00:00Z",
+    "venue": "Groupama Stadium"
+  },
+  {
+    "id": "m14",
+    "homeTeam": "Arsenal",
+    "awayTeam": "Chelsea",
+    "homeScore": 2,
+    "awayScore": 2,
+    "status": "live",
+    "competition": "Premier League",
+    "date": "2026-05-20T18:00:00Z",
+    "venue": "Emirates Stadium"
+  },
+  {
+    "id": "m15",
+    "homeTeam": "Bayern",
+    "awayTeam": "Dortmund",
+    "homeScore": 1,
+    "awayScore": 0,
+    "status": "finished",
+    "competition": "Bundesliga",
+    "date": "2026-05-16T18:00:00Z",
+    "venue": "Allianz Arena"
+  }
+]
