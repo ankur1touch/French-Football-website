@@ -1,0 +1,11 @@
+{
+  "name": "french-football-website",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix lefoot-fr",
+    "build": "npm run build --prefix lefoot-fr",
+    "start": "npm run start --prefix lefoot-fr",
+    "lint": "npm run lint --prefix lefoot-fr",
+    "install:app": "npm install --prefix lefoot-fr"
+  }
+}

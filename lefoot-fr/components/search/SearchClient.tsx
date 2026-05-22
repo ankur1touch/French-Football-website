@@ -173,7 +173,7 @@ export default function SearchClient() {
                 {results.matches.map((match) => (
                   <li key={match.id}>
                     <Link
-                      href={lp("matchs")}
+                      href={lp(`matchs/${match.id}`)}
                       className="block px-4 py-3 hover:bg-gray-50"
                     >
                       <p className="font-medium text-gray-900">

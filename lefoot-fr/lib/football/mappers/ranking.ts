@@ -15,6 +15,7 @@ function mapRow(row: ApiStandingRow): StandingRow {
   return {
     position: row.rank,
     team: row.team.name,
+    teamId: String(row.team.id),
     points: row.points,
     played: row.all?.played ?? 0,
     won: row.all?.win ?? 0,

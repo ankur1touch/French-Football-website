@@ -3,6 +3,7 @@ export type FormResult = "W" | "D" | "L";
 export interface StandingRow {
   position: number;
   team: string;
+  teamId?: string;
   points: number;
   played: number;
   won: number;

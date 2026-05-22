@@ -70,6 +70,7 @@ export interface Dictionary {
     tabs: { live: string; upcoming: string; finished: string };
     allCompetitions: string;
     noMatches: string;
+    noFinished: string;
   };
   rankings: {
     title: string;
@@ -100,6 +101,51 @@ export interface Dictionary {
   poll: {
     title: string;
     votes: string;
+  };
+  detail: {
+    match: {
+      events: string;
+      lineups: string;
+      stats: string;
+      h2h: string;
+      noEvents: string;
+      noLineups: string;
+      noStats: string;
+      noH2h: string;
+      notFound: string;
+      final: string;
+      halftime: string;
+      starters: string;
+      substitutes: string;
+      lastMeetings: string;
+    };
+    player: {
+      notFound: string;
+      seasonStats: string;
+      recentFixtures: string;
+      bio: string;
+      injured: string;
+      backToPlayers: string;
+      height: string;
+      weight: string;
+      yearsOld: string;
+    };
+    team: {
+      notFound: string;
+      squad: string;
+      upcoming: string;
+      results: string;
+      backToTeams: string;
+      noSquad: string;
+      noFixtures: string;
+      position: string;
+      founded: string;
+      capacity: string;
+      goalkeepers: string;
+      defenders: string;
+      midfielders: string;
+      attackers: string;
+    };
   };
 }
 
@@ -181,6 +227,7 @@ const fr: Dictionary = {
     tabs: { live: "Live", upcoming: "À venir", finished: "Résultats" },
     allCompetitions: "Toutes les compétitions",
     noMatches: "Aucun match trouvé.",
+    noFinished: "Aucun résultat récent. Les matchs CDM 2026 n'ont pas encore commencé.",
   },
   rankings: {
     title: "Classements",
@@ -217,6 +264,51 @@ const fr: Dictionary = {
   poll: {
     title: "Sondage du jour",
     votes: "votes · résultats en direct",
+  },
+  detail: {
+    match: {
+      events: "Événements",
+      lineups: "Compositions",
+      stats: "Statistiques",
+      h2h: "Face à face",
+      noEvents: "Aucun événement disponible.",
+      noLineups: "Compositions non disponibles.",
+      noStats: "Statistiques non disponibles.",
+      noH2h: "Aucun historique disponible.",
+      notFound: "Match introuvable.",
+      final: "Terminé",
+      halftime: "Mi-temps",
+      starters: "Titulaires",
+      substitutes: "Remplaçants",
+      lastMeetings: "Dernières confrontations",
+    },
+    player: {
+      notFound: "Joueur introuvable.",
+      seasonStats: "Statistiques de saison",
+      recentFixtures: "Derniers matchs",
+      bio: "Biographie",
+      injured: "Joueur blessé actuellement",
+      backToPlayers: "← Retour aux joueurs",
+      height: "Taille",
+      weight: "Poids",
+      yearsOld: "ans",
+    },
+    team: {
+      notFound: "Équipe introuvable.",
+      squad: "Effectif",
+      upcoming: "Prochains matchs",
+      results: "Résultats",
+      backToTeams: "← Retour aux équipes",
+      noSquad: "Effectif non disponible.",
+      noFixtures: "Aucun match disponible.",
+      position: "Position",
+      founded: "Fondé",
+      capacity: "Cap.",
+      goalkeepers: "Gardiens",
+      defenders: "Défenseurs",
+      midfielders: "Milieux",
+      attackers: "Attaquants",
+    },
   },
 };
 
@@ -298,6 +390,7 @@ const en: Dictionary = {
     tabs: { live: "Live", upcoming: "Upcoming", finished: "Results" },
     allCompetitions: "All competitions",
     noMatches: "No matches found.",
+    noFinished: "No recent results. WC 2026 matches have not started yet.",
   },
   rankings: {
     title: "Standings",
@@ -334,6 +427,51 @@ const en: Dictionary = {
   poll: {
     title: "Poll of the day",
     votes: "votes · live results",
+  },
+  detail: {
+    match: {
+      events: "Events",
+      lineups: "Lineups",
+      stats: "Statistics",
+      h2h: "Head to head",
+      noEvents: "No events available.",
+      noLineups: "Lineups not available.",
+      noStats: "Statistics not available.",
+      noH2h: "No history available.",
+      notFound: "Match not found.",
+      final: "Full time",
+      halftime: "Half time",
+      starters: "Starting XI",
+      substitutes: "Substitutes",
+      lastMeetings: "Last meetings",
+    },
+    player: {
+      notFound: "Player not found.",
+      seasonStats: "Season statistics",
+      recentFixtures: "Recent matches",
+      bio: "Biography",
+      injured: "Currently injured",
+      backToPlayers: "← Back to players",
+      height: "Height",
+      weight: "Weight",
+      yearsOld: "years old",
+    },
+    team: {
+      notFound: "Team not found.",
+      squad: "Squad",
+      upcoming: "Upcoming",
+      results: "Results",
+      backToTeams: "← Back to teams",
+      noSquad: "Squad not available.",
+      noFixtures: "No matches available.",
+      position: "Position",
+      founded: "Founded",
+      capacity: "Cap.",
+      goalkeepers: "Goalkeepers",
+      defenders: "Defenders",
+      midfielders: "Midfielders",
+      attackers: "Forwards",
+    },
   },
 };
 

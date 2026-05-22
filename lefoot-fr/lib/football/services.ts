@@ -21,6 +21,19 @@ import type { Tournament } from "@/types/tournament";
 import type { Team } from "@/types/team";
 import type { Player } from "@/types/player";
 import type { Transfer } from "@/types/transfer";
+import type { MatchDetail } from "@/types/matchDetail";
+import type { PlayerDetailResponse } from "@/types/player";
+import type { TeamDetailResponse } from "@/types/team";
+import {
+  buildMatchDetail,
+  mapDetailSquad,
+  mapFixtureToH2H,
+  mapPlayerInfo,
+  mapPlayerStatisticsDetail,
+  mapTeamDetailStanding,
+  mapTeamInfo,
+} from "./mappers/matchDetail";
+import { readLocalJSON } from "@/lib/data";
 
 const { season, primaryLeagueId, worldCupId } = footballConfig;
 
@@ -50,6 +63,35 @@ export async function getLiveScores(): Promise<LiveScore[]> {
   return items.map(mapFixtureToLiveScore);
 }
 
+async function getFinishedFixtures(): Promise<ApiFixtureItem[]> {
+  const primary = await fetchFootball<ApiFixtureItem[]>("fixtures", {
+    league: primaryLeagueId,
+    season,
+    last: 15,
+  }).catch(() => [] as ApiFixtureItem[]);
+
+  if (primary.length) return primary;
+
+  const wc2022 = await fetchFootball<ApiFixtureItem[]>("fixtures", {
+    league: worldCupId,
+    season: 2022,
+    last: 15,
+  }).catch(() => [] as ApiFixtureItem[]);
+
+  if (wc2022.length) return wc2022;
+
+  const recentFt = await fetchFootball<ApiFixtureItem[]>("fixtures", {
+    last: 20,
+    status: "FT",
+  }).catch(() => [] as ApiFixtureItem[]);
+
+  const filtered = filterPrimaryFixtures(recentFt);
+  if (filtered.length) return filtered.slice(0, 15);
+  if (recentFt.length) return recentFt.slice(0, 15);
+
+  return [];
+}
+
 export async function getAllMatches(): Promise<Match[]> {
   const [live, upcoming, finished] = await Promise.all([
     getLiveFixtures().catch(() => [] as ApiFixtureItem[]),
@@ -58,11 +100,7 @@ export async function getAllMatches(): Promise<Match[]> {
       season,
       next: 15,
     }).catch(() => [] as ApiFixtureItem[]),
-    fetchFootball<ApiFixtureItem[]>("fixtures", {
-      league: primaryLeagueId,
-      season,
-      last: 15,
-    }).catch(() => [] as ApiFixtureItem[]),
+    getFinishedFixtures(),
   ]);
 
   const liveMatches = mapFixtures(live).map((m) => ({ ...m, status: "live" as const }));
@@ -70,10 +108,17 @@ export async function getAllMatches(): Promise<Match[]> {
     ...m,
     status: "upcoming" as const,
   }));
-  const finishedMatches = mapFixtures(finished).map((m) => ({
+  let finishedMatches = mapFixtures(finished).map((m) => ({
     ...m,
     status: "finished" as const,
   }));
+
+  if (!finishedMatches.length && footballConfig.mockFallback) {
+    const mockAll = readLocalJSON<Match[]>("matches.json");
+    finishedMatches = mockAll
+      .filter((m) => m.status === "finished")
+      .map((m) => ({ ...m, status: "finished" as const }));
+  }
 
   const seen = new Set<string>();
   return [...liveMatches, ...upcomingMatches, ...finishedMatches].filter((m) => {
@@ -263,25 +308,222 @@ export async function getPlayerById(id: string): Promise<Player | null> {
 }
 
 export async function getTransfers(): Promise<Transfer[]> {
-  const standings = await fetchFootball<ApiStandingsBlock[]>("standings", {
-    league: primaryLeagueId,
-    season,
-  });
-  const teamIds = extractTeamsFromStandings(standings)
-    .map((t) => t.team?.id)
-    .filter((id): id is number => id !== undefined)
-    .slice(0, 8);
+  const scorers = await fetchFootball<ApiTopScorerItem[]>("topscorers", {
+    league: footballConfig.ligue1Id,
+    season: 2024,
+  }).catch(() => [] as ApiTopScorerItem[]);
 
-  if (!teamIds.length) {
-    return mapTransfers([]).slice(0, 20);
+  const playerIds = scorers
+    .map((s) => s.player?.id)
+    .filter((id): id is number => id !== undefined)
+    .slice(0, 12);
+
+  if (!playerIds.length) {
+    return readLocalJSON<Transfer[]>("transfers.json").slice(0, 20);
   }
 
   const results = await Promise.all(
-    teamIds.map((team) =>
-      fetchFootball<ApiTransferItem[]>("transfers", { team }).catch(
+    playerIds.map((player) =>
+      fetchFootball<ApiTransferItem[]>("transfers", { player }).catch(
         () => [] as ApiTransferItem[]
       )
     )
   );
-  return mapTransfers(results.flat()).slice(0, 20);
+
+  const transfers = mapTransfers(results.flat()).slice(0, 20);
+
+  if (!transfers.length && footballConfig.mockFallback) {
+    return readLocalJSON<Transfer[]>("transfers.json").slice(0, 20);
+  }
+
+  return transfers;
+}
+
+async function resolveTeamNumericId(id: string): Promise<number | null> {
+  const numericId = Number(id);
+  if (!Number.isNaN(numericId)) return numericId;
+
+  const slugMatch = footballConfig.nationalTeamIds.find(
+    (tid) => mapNationalTeamId(tid) === id
+  );
+  if (slugMatch) return slugMatch;
+
+  const standings = await fetchFootball<ApiStandingsBlock[]>("standings", {
+    league: primaryLeagueId,
+    season,
+  }).catch(() => [] as ApiStandingsBlock[]);
+  const standingTeams = extractTeamsFromStandings(standings);
+  const club = standingTeams.find((c) => String(c.team?.id) === id);
+  return club?.team?.id ?? null;
+}
+
+export async function getMatchDetail(id: string): Promise<MatchDetail | null> {
+  const fixtureId = Number(id);
+  if (Number.isNaN(fixtureId)) return null;
+
+  const fixtures = await fetchFootball<ApiFixtureItem[]>("fixtures", { id: fixtureId }).catch(
+    () => [] as ApiFixtureItem[]
+  );
+  const fixture = fixtures[0];
+  if (!fixture) return null;
+
+  const homeId = fixture.teams?.home?.id;
+  const awayId = fixture.teams?.away?.id;
+
+  const [lineupsRes, eventsRes, statsRes, h2hRes] = await Promise.allSettled([
+    fetchFootball<unknown[]>("lineups", { fixture: fixtureId }),
+    fetchFootball<unknown[]>("events", { fixture: fixtureId }),
+    fetchFootball<unknown[]>("stats", { fixture: fixtureId }),
+    homeId && awayId
+      ? fetchFootball<ApiFixtureItem[]>("headtohead", {
+          h2h: `${homeId}-${awayId}`,
+          last: 5,
+        })
+      : Promise.resolve([] as ApiFixtureItem[]),
+  ]);
+
+  const lineups = lineupsRes.status === "fulfilled" ? lineupsRes.value : [];
+  const events = eventsRes.status === "fulfilled" ? eventsRes.value : [];
+  const stats = statsRes.status === "fulfilled" ? statsRes.value : [];
+  const h2h = h2hRes.status === "fulfilled" ? h2hRes.value : [];
+
+  return buildMatchDetail(fixture, events as never[], lineups as never[], stats as never[], h2h);
+}
+
+async function findPlayerInTopScorers(playerId: number): Promise<ApiTopScorerItem | null> {
+  const scorers = await fetchFootball<ApiTopScorerItem[]>("topscorers", {
+    league: primaryLeagueId,
+    season,
+  }).catch(() => [] as ApiTopScorerItem[]);
+  return scorers.find((s) => s.player?.id === playerId) ?? null;
+}
+
+function collectPlayerStatistics(
+  profileItem: ApiTopScorerItem | undefined,
+  statsData: ApiTopScorerItem[],
+  topscorerItem: ApiTopScorerItem | null
+): NonNullable<ReturnType<typeof mapPlayerStatisticsDetail>>[] {
+  const results: NonNullable<ReturnType<typeof mapPlayerStatisticsDetail>>[] = [];
+  const seen = new Set<string>();
+
+  const add = (raw: unknown) => {
+    const mapped = mapPlayerStatisticsDetail(raw);
+    if (!mapped) return;
+    const key = `${mapped.team.id}-${mapped.league.id}-${mapped.league.season}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    results.push(mapped);
+  };
+
+  if (profileItem?.statistics?.length) {
+    for (const stat of profileItem.statistics) {
+      add({ statistics: [stat] });
+    }
+  }
+
+  for (const item of statsData) {
+    add(item);
+  }
+
+  if (topscorerItem?.statistics?.length) {
+    add(topscorerItem);
+  }
+
+  return results;
+}
+
+export async function getPlayerDetail(id: string): Promise<PlayerDetailResponse | null> {
+  const playerId = Number(id);
+  if (Number.isNaN(playerId)) return null;
+
+  const [profileRes, statsRes, fixturesRes, topscorerRes] = await Promise.allSettled([
+    fetchFootball<ApiTopScorerItem[]>("players", { id: playerId }),
+    fetchFootball<ApiTopScorerItem[]>("players-statistics", {
+      player: playerId,
+      season,
+      league: primaryLeagueId,
+    }),
+    fetchFootball<ApiFixtureItem[]>("fixtures", { player: playerId, last: 5 }),
+    findPlayerInTopScorers(playerId),
+  ]);
+
+  const profileData = profileRes.status === "fulfilled" ? profileRes.value : [];
+  const statsData = statsRes.status === "fulfilled" ? statsRes.value : [];
+  const fixtures = fixturesRes.status === "fulfilled" ? fixturesRes.value : [];
+  const topscorerItem = topscorerRes.status === "fulfilled" ? topscorerRes.value : null;
+
+  const profileItem = profileData[0];
+  const statsItem = statsData[0];
+  const sourceItem = profileItem ?? statsItem ?? topscorerItem;
+
+  if (!sourceItem?.player) {
+    const fallback = await getPlayerById(id);
+    if (!fallback) return null;
+    return {
+      player: {
+        id: Number(fallback.id),
+        name: fallback.name,
+        firstname: fallback.name.split(" ")[0] ?? "",
+        lastname: fallback.name.split(" ").slice(1).join(" ") ?? "",
+        age: fallback.age,
+        nationality: fallback.nationality,
+        height: "—",
+        weight: "—",
+        injured: false,
+        photo: fallback.image,
+      },
+      statistics: [],
+      recentFixtures: fixtures.map(mapFixtureToH2H),
+      bio: fallback.bio,
+    };
+  }
+
+  const statistics = collectPlayerStatistics(profileItem, statsData, topscorerItem);
+  const player = mapPlayerInfo(sourceItem);
+  const teamName = statistics[0]?.team?.name ?? topscorerItem?.statistics?.[0]?.team?.name ?? "—";
+
+  return {
+    player,
+    statistics,
+    recentFixtures: fixtures.map(mapFixtureToH2H),
+    bio: `${player.name} — ${teamName} · Coupe du Monde FIFA 2026.`,
+  };
+}
+
+export async function getTeamDetail(id: string): Promise<TeamDetailResponse | null> {
+  const teamId = await resolveTeamNumericId(id);
+  if (!teamId) return null;
+
+  const [teamRes, squadRes, fixturesRes, resultsRes, standingsRes] =
+    await Promise.allSettled([
+      fetchFootball<ApiTeamItem[]>("teams", { team: teamId }),
+      fetchFootball<ApiSquadItem[]>("players-squads", { team: teamId }),
+      fetchFootball<ApiFixtureItem[]>("fixtures", { team: teamId, next: 5 }),
+      fetchFootball<ApiFixtureItem[]>("fixtures", { team: teamId, last: 5 }),
+      fetchFootball<ApiStandingsBlock[]>("standings", {
+        league: primaryLeagueId,
+        season,
+      }),
+    ]);
+
+  const teamData = teamRes.status === "fulfilled" ? teamRes.value : [];
+  const squadData = squadRes.status === "fulfilled" ? squadRes.value : [];
+  const fixtures = fixturesRes.status === "fulfilled" ? fixturesRes.value : [];
+  const results = resultsRes.status === "fulfilled" ? resultsRes.value : [];
+  const standingsBlocks = standingsRes.status === "fulfilled" ? standingsRes.value : [];
+
+  const teamItem = teamData[0];
+  if (!teamItem) return null;
+
+  const tables =
+    standingsBlocks[0]?.standings ?? standingsBlocks[0]?.league?.standings ?? [];
+  const allRows = tables.flat().map(mapTeamDetailStanding);
+
+  return {
+    team: mapTeamInfo(teamItem),
+    squad: mapDetailSquad(squadData as never[]),
+    fixtures: fixtures.map(mapFixtureToH2H),
+    results: results.map(mapFixtureToH2H),
+    standings: allRows,
+  };
 }

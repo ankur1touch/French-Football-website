@@ -1,10 +1,16 @@
+"use client";
+
+import Link from "next/link";
 import type { TopScorer } from "@/types/tournament";
+import { useLocalizedPath } from "@/components/providers/LocaleProvider";
 
 interface TopScorersTableProps {
   scorers: TopScorer[];
 }
 
 export default function TopScorersTable({ scorers }: TopScorersTableProps) {
+  const lp = useLocalizedPath();
+
   if (scorers.length === 0) {
     return <p className="text-sm text-gray-500">Buteurs non disponibles.</p>;
   }
@@ -24,8 +30,30 @@ export default function TopScorersTable({ scorers }: TopScorersTableProps) {
           {scorers.map((scorer) => (
             <tr key={scorer.rank} className="border-b border-gray-50">
               <td className="py-2 pr-2 text-gray-500">{scorer.rank}</td>
-              <td className="py-2 font-medium">{scorer.player}</td>
-              <td className="py-2 text-gray-600">{scorer.club}</td>
+              <td className="py-2 font-medium">
+                {scorer.playerId ? (
+                  <Link
+                    href={lp(`joueurs/${scorer.playerId}`)}
+                    className="hover:text-primary"
+                  >
+                    {scorer.player}
+                  </Link>
+                ) : (
+                  scorer.player
+                )}
+              </td>
+              <td className="py-2 text-gray-600">
+                {scorer.teamId ? (
+                  <Link
+                    href={lp(`equipes/${scorer.teamId}`)}
+                    className="hover:text-primary"
+                  >
+                    {scorer.club}
+                  </Link>
+                ) : (
+                  scorer.club
+                )}
+              </td>
               <td className="py-2 text-center font-bold text-primary">{scorer.goals}</td>
             </tr>
           ))}

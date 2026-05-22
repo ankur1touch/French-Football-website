@@ -28,6 +28,9 @@ function extractStats(item: ApiTopScorerItem): PlayerStats {
 export function mapTopScorerToPlayer(item: ApiTopScorerItem, index: number): Player {
   const player = item.player ?? { id: index, name: "Joueur" };
   const club = item.statistics?.[0]?.team?.name ?? "—";
+  const teamId = item.statistics?.[0]?.team?.id
+    ? String(item.statistics[0].team.id)
+    : undefined;
   const stats = extractStats(item);
 
   return {
@@ -36,6 +39,7 @@ export function mapTopScorerToPlayer(item: ApiTopScorerItem, index: number): Pla
     position: "Attaquant",
     nationality: "—",
     club,
+    teamId,
     age: player.age ?? 25,
     image: player.photo ?? DEFAULT_IMAGE,
     stats,

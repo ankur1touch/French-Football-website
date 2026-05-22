@@ -7,6 +7,9 @@ import livescoresReducer from "./features/livescoresSlice";
 import tournamentsReducer from "./features/tournamentsSlice";
 import teamsReducer from "./features/teamsSlice";
 import playersReducer from "./features/playersSlice";
+import matchDetailReducer from "./features/matchDetailSlice";
+import playerDetailReducer from "./features/playerDetailSlice";
+import teamDetailReducer from "./features/teamDetailSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -19,6 +22,9 @@ export const makeStore = () =>
       tournaments: tournamentsReducer,
       teams: teamsReducer,
       players: playersReducer,
+      matchDetail: matchDetailReducer,
+      playerDetail: playerDetailReducer,
+      teamDetail: teamDetailReducer,
     },
   });
 

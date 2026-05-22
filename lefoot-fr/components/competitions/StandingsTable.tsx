@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import type { TournamentStanding } from "@/types/tournament";
 import type { FormResult, StandingRow } from "@/types/ranking";
 import { cn } from "@/lib/cn";
-import { useTranslations } from "@/components/providers/LocaleProvider";
+import { useLocalizedPath, useTranslations } from "@/components/providers/LocaleProvider";
 
 const formColors: Record<FormResult, string> = {
   W: "bg-form-win",
@@ -17,6 +18,7 @@ interface StandingsTableProps {
 
 export default function StandingsTable({ standings }: StandingsTableProps) {
   const t = useTranslations();
+  const lp = useLocalizedPath();
 
   if (standings.length === 0) {
     return <p className="text-sm text-gray-500">{t.rankings.unavailable}</p>;
@@ -48,7 +50,15 @@ export default function StandingsTable({ standings }: StandingsTableProps) {
           {standings.map((row) => (
             <tr key={row.team} className="border-b border-gray-50">
               <td className="py-2 pr-2 text-gray-500">{row.position}</td>
-              <td className="py-2 font-medium">{row.team}</td>
+              <td className="py-2 font-medium">
+                {"teamId" in row && row.teamId ? (
+                  <Link href={lp(`equipes/${row.teamId}`)} className="hover:text-primary">
+                    {row.team}
+                  </Link>
+                ) : (
+                  row.team
+                )}
+              </td>
               <td className="py-2 text-center text-gray-500">{row.played}</td>
               <td className="py-2 text-center text-gray-500">{row.won}</td>
               <td className="py-2 text-center text-gray-500">{row.drawn}</td>

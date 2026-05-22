@@ -54,7 +54,9 @@ export function mapLeagueToTournament(
   const scorers: TopScorer[] = topScorers.slice(0, 10).map((s, i) => ({
     rank: i + 1,
     player: s.player?.name ?? "—",
+    playerId: s.player?.id ? String(s.player.id) : undefined,
     club: s.statistics?.[0]?.team?.name ?? "—",
+    teamId: s.statistics?.[0]?.team?.id ? String(s.statistics[0].team.id) : undefined,
     goals: s.statistics?.[0]?.goals?.total ?? 0,
   }));
 

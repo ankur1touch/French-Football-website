@@ -1,10 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import type { FormResult } from "@/types/ranking";
 import Skeleton from "@/components/ui/Skeleton";
 import { cn } from "@/lib/cn";
-import { useTranslations } from "@/components/providers/LocaleProvider";
+import { useLocalizedPath, useTranslations } from "@/components/providers/LocaleProvider";
 
 const formColors: Record<FormResult, string> = {
   W: "bg-form-win",
@@ -15,6 +16,7 @@ const formColors: Record<FormResult, string> = {
 export default function StandingsWidget() {
   const { ligue1, groups, leagueName, status } = useAppSelector((state) => state.rankings);
   const t = useTranslations();
+  const lp = useLocalizedPath();
   const rows = groups?.[0]?.rows ?? ligue1;
   const groupName = groups?.[0]?.name ?? "Group A";
 
@@ -49,7 +51,15 @@ export default function StandingsWidget() {
           {rows.slice(0, 8).map((row) => (
             <tr key={row.team} className="border-b border-gray-50">
               <td className="py-2 pr-2 text-gray-500">{row.position}</td>
-              <td className="py-2 font-medium text-gray-900">{row.team}</td>
+              <td className="py-2 font-medium text-gray-900">
+                {row.teamId ? (
+                  <Link href={lp(`equipes/${row.teamId}`)} className="hover:text-primary">
+                    {row.team}
+                  </Link>
+                ) : (
+                  row.team
+                )}
+              </td>
               <td className="py-2 text-center font-bold text-primary">{row.points}</td>
               <td className="py-2">
                 <div className="flex justify-end gap-0.5">

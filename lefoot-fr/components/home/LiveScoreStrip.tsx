@@ -1,13 +1,31 @@
 "use client";
 
+import Link from "next/link";
+import Image from "next/image";
 import { useAppSelector } from "@/store/hooks";
 import Badge from "@/components/ui/Badge";
 import Skeleton from "@/components/ui/Skeleton";
-import { useTranslations } from "@/components/providers/LocaleProvider";
+import { useLocalizedPath, useTranslations } from "@/components/providers/LocaleProvider";
+
+function StripLogo({ src, name }: { src?: string; name: string }) {
+  if (src) {
+    return (
+      <Image
+        src={src}
+        alt=""
+        width={16}
+        height={16}
+        className="h-4 w-4 object-contain"
+      />
+    );
+  }
+  return null;
+}
 
 export default function LiveScoreStrip() {
   const { scores, status } = useAppSelector((state) => state.livescores);
   const t = useTranslations();
+  const lp = useLocalizedPath();
 
   if (status === "loading" || (status === "idle" && scores.length === 0)) {
     return (
@@ -40,17 +58,19 @@ export default function LiveScoreStrip() {
           {t.common.live}
         </Badge>
         {scores.map((score) => (
-          <div
+          <Link
             key={score.id}
-            className="flex shrink-0 items-center gap-2 text-sm text-white"
+            href={lp(`matchs/${score.id}`)}
+            className="flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 text-sm text-white hover:bg-white/10 hover:text-gold"
           >
-            <span>{score.homeTeam}</span>
-            <span>vs</span>
-            <span>{score.awayTeam}</span>
+            <StripLogo src={score.homeLogo} name={score.homeTeam} />
+            <span className="max-w-[5rem] truncate">{score.homeTeam}</span>
             <span className="font-bold text-gold">
               {score.homeScore}-{score.awayScore}
             </span>
-          </div>
+            <span className="max-w-[5rem] truncate">{score.awayTeam}</span>
+            <StripLogo src={score.awayLogo} name={score.awayTeam} />
+          </Link>
         ))}
       </div>
     </div>

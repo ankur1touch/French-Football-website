@@ -23,7 +23,14 @@ export function mapTransferItem(item: ApiTransferItem, index: number): Transfer[
     player: playerName,
     from: t.teams?.out?.name ?? "—",
     to: t.teams?.in?.name ?? "—",
-    fee: t.type?.includes("Free") ? "Gratuit" : t.type ?? "—",
+    fee:
+      t.type?.includes("Free") || t.type?.toLowerCase() === "free"
+        ? "Gratuit"
+        : t.type === "N/A" || t.type === "Loan"
+          ? t.type === "Loan"
+            ? "Prêt"
+            : "—"
+          : (t.type ?? "—"),
     status: inferStatus(t.type),
     window: inferWindow(t.date ?? item.update),
   }));

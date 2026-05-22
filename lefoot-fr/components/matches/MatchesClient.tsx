@@ -90,7 +90,9 @@ export default function MatchesClient() {
       </select>
 
       {filtered.length === 0 ? (
-        <p className="py-12 text-center text-gray-500">{t.matches.noMatches}</p>
+        <p className="py-12 text-center text-gray-500">
+          {activeStatus === "finished" ? t.matches.noFinished : t.matches.noMatches}
+        </p>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
           {filtered.map((match) => (
