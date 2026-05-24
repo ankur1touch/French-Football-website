@@ -30,6 +30,15 @@ Copy `lefoot-fr/.env.local.example` to `lefoot-fr/.env.local` and configure:
 
 Never commit `.env.local` — it is gitignored.
 
+## Deploy on AWS Amplify
+
+1. Connect repo: [github.com/ankur1touch/French-Football-website](https://github.com/ankur1touch/French-Football-website) → branch **main**
+2. Enable **Monorepo** and set app root to **`lefoot-fr`**
+3. Platform must be **Web Compute** (Next.js SSR) — Amplify usually auto-detects this
+4. Copy env vars from `lefoot-fr/.env.local.example` into Amplify → **Environment variables**
+5. After first deploy, set `NEXT_PUBLIC_SITE_URL` to your Amplify URL (e.g. `https://main.d1234.amplifyapp.com`)
+6. Root `amplify.yml` is included for monorepo builds
+
 ## Scripts
 
 ```bash
