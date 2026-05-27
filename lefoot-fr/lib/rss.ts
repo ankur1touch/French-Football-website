@@ -2,7 +2,12 @@ import Parser from "rss-parser";
 import type { NewsCategory, NewsCategorySlug } from "@/types/news";
 
 type MediaNode = { $?: { url?: string; width?: string } };
-type RssParserItem = Record<string, unknown>;
+type RssParserItem = {
+  mediaThumbnail?: unknown;
+  mediaContent?: unknown;
+  enclosure?: unknown;
+  contentEncoded?: unknown;
+};
 
 const parser = new Parser({
   customFields: {
@@ -230,7 +235,7 @@ export async function fetchRSSFeed(url: string): Promise<RSSItem[]> {
       pubDate: item.pubDate,
       contentSnippet: item.contentSnippet,
       categories: normalizeCategories(item.categories),
-      image: extractRssItemImage(item as RssParserItem),
+      image: extractRssItemImage(item),
     }));
   } catch {
     return [];
