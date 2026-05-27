@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/types/news";
 import { formatRelative } from "@/lib/utils/date";
 import Badge from "@/components/ui/Badge";
+import SafeImage from "@/components/ui/SafeImage";
 import {
   useLocale,
   useLocalizedPath,
@@ -31,16 +31,14 @@ export default function FeaturedArticle({ article }: FeaturedArticleProps) {
       href={lp(`actualites/${article.slug}`)}
       className="group relative mb-8 block overflow-hidden rounded-lg"
     >
-      <div className="relative aspect-[21/9]">
-        <Image
+      <div className="relative aspect-[21/9] bg-gray-900">
+        <SafeImage
           src={article.image}
           alt={article.title}
           fill
           sizes="100vw"
           className="object-cover transition-transform group-hover:scale-105"
           priority
-          loading="eager"
-          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">

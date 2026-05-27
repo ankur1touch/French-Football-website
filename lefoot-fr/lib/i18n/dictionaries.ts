@@ -33,6 +33,19 @@ export interface Dictionary {
     contact: string;
     legal: string;
     rss: string;
+    advertise: string;
+    colFootball: string;
+    colTournaments: string;
+    colNews: string;
+    colSite: string;
+    tagline: string;
+    competitions: string;
+    franceTeam: string;
+    newsletterTitle: string;
+    newsletterDesc: string;
+    newsletterPlaceholder: string;
+    newsletterCta: string;
+    rights: string;
   };
   common: {
     back: string;
@@ -59,6 +72,13 @@ export interface Dictionary {
     noLiveMatches: string;
     hotTransfers: string;
     pollQuestion: string;
+    matchOfDay: string;
+    fanZoneTitle: string;
+    fanZoneDesc: string;
+    fanZoneCta: string;
+    fifaRankings: string;
+    tournaments: string;
+    relatedArticles: string;
   };
   news: {
     title: string;
@@ -101,6 +121,31 @@ export interface Dictionary {
   poll: {
     title: string;
     votes: string;
+  };
+  worldCup: {
+    title: string;
+    subtitle: string;
+    hostCities: string;
+    fixtures: string;
+    news: string;
+    mascot: string;
+    trophy: string;
+  };
+  country: {
+    title: string;
+    news: string;
+    fixtures: string;
+    notFound: string;
+  };
+  staticPages: {
+    aboutTitle: string;
+    aboutBody: string;
+    contactTitle: string;
+    contactBody: string;
+    privacyTitle: string;
+    privacyBody: string;
+    advertiseTitle: string;
+    advertiseBody: string;
   };
   detail: {
     match: {
@@ -181,6 +226,19 @@ const fr: Dictionary = {
     contact: "Contact",
     legal: "Mentions légales",
     rss: "RSS",
+    advertise: "Publicité",
+    colFootball: "Football",
+    colTournaments: "Compétitions",
+    colNews: "Actualités",
+    colSite: "Site",
+    tagline: "Le portail du football français et africain.",
+    competitions: "Compétitions",
+    franceTeam: "Équipe de France",
+    newsletterTitle: "Newsletter LeFootFR",
+    newsletterDesc: "Recevez les dernières actus football directement dans votre boîte mail.",
+    newsletterPlaceholder: "Votre email",
+    newsletterCta: "S'inscrire",
+    rights: "Tous droits réservés.",
   },
   common: {
     back: "Retour",
@@ -207,6 +265,13 @@ const fr: Dictionary = {
     noLiveMatches: "Aucun match en direct · Coupe du Monde 2026",
     hotTransfers: "Transferts chauds",
     pollQuestion: "Qui est le meilleur joueur de la CDM 2026 ?",
+    matchOfDay: "Match du jour",
+    fanZoneTitle: "Zone supporters",
+    fanZoneDesc: "Rejoignez la communauté LeFootFR — sondages, débats et passion du ballon rond.",
+    fanZoneCta: "Participer",
+    fifaRankings: "Classement FIFA",
+    tournaments: "Compétitions",
+    relatedArticles: "Articles similaires",
   },
   news: {
     title: "Actualités",
@@ -264,6 +329,34 @@ const fr: Dictionary = {
   poll: {
     title: "Sondage du jour",
     votes: "votes · résultats en direct",
+  },
+  worldCup: {
+    title: "Coupe du Monde FIFA 2026",
+    subtitle: "USA · Canada · Mexique",
+    hostCities: "Villes hôtes",
+    fixtures: "Calendrier",
+    news: "Actus CDM",
+    mascot: "Maple · Mascotte officielle",
+    trophy: "Le trophée",
+  },
+  country: {
+    title: "Hub pays",
+    news: "Actualités",
+    fixtures: "Matchs",
+    notFound: "Pays introuvable.",
+  },
+  staticPages: {
+    aboutTitle: "À propos de LeFootFR",
+    aboutBody:
+      "LeFootFR est le portail de référence pour le football français et africain, avec un focus sur la Coupe du Monde 2026.",
+    contactTitle: "Contact",
+    contactBody: "Pour toute demande, écrivez-nous à contact@lefootfr.com.",
+    privacyTitle: "Mentions légales",
+    privacyBody:
+      "LeFootFR respecte votre vie privée. Les données collectées via la newsletter ne sont pas partagées avec des tiers.",
+    advertiseTitle: "Publicité",
+    advertiseBody:
+      "Intéressé par une collaboration publicitaire ? Contactez-nous pour nos offres média.",
   },
   detail: {
     match: {
@@ -344,6 +437,19 @@ const en: Dictionary = {
     contact: "Contact",
     legal: "Legal notice",
     rss: "RSS",
+    advertise: "Advertising",
+    colFootball: "Football",
+    colTournaments: "Tournaments",
+    colNews: "News",
+    colSite: "Site",
+    tagline: "The French and African football portal.",
+    competitions: "Competitions",
+    franceTeam: "France NT",
+    newsletterTitle: "LeFootFR Newsletter",
+    newsletterDesc: "Get the latest football news straight to your inbox.",
+    newsletterPlaceholder: "Your email",
+    newsletterCta: "Subscribe",
+    rights: "All rights reserved.",
   },
   common: {
     back: "Back",
@@ -370,6 +476,13 @@ const en: Dictionary = {
     noLiveMatches: "No live matches · World Cup 2026",
     hotTransfers: "Hot transfers",
     pollQuestion: "Who is the best player at WC 2026?",
+    matchOfDay: "Match of the day",
+    fanZoneTitle: "Fan zone",
+    fanZoneDesc: "Join the LeFootFR community — polls, debates, and football passion.",
+    fanZoneCta: "Join in",
+    fifaRankings: "FIFA rankings",
+    tournaments: "Tournaments",
+    relatedArticles: "Related articles",
   },
   news: {
     title: "News",
@@ -427,6 +540,34 @@ const en: Dictionary = {
   poll: {
     title: "Poll of the day",
     votes: "votes · live results",
+  },
+  worldCup: {
+    title: "FIFA World Cup 2026",
+    subtitle: "USA · Canada · Mexico",
+    hostCities: "Host cities",
+    fixtures: "Fixtures",
+    news: "WC news",
+    mascot: "Maple · Official mascot",
+    trophy: "The trophy",
+  },
+  country: {
+    title: "Country hub",
+    news: "News",
+    fixtures: "Fixtures",
+    notFound: "Country not found.",
+  },
+  staticPages: {
+    aboutTitle: "About LeFootFR",
+    aboutBody:
+      "LeFootFR is the reference portal for French and African football, with a focus on the 2026 World Cup.",
+    contactTitle: "Contact",
+    contactBody: "For any inquiry, write to us at contact@lefootfr.com.",
+    privacyTitle: "Privacy policy",
+    privacyBody:
+      "LeFootFR respects your privacy. Newsletter data is not shared with third parties.",
+    advertiseTitle: "Advertising",
+    advertiseBody:
+      "Interested in advertising? Contact us for our media offers.",
   },
   detail: {
     match: {

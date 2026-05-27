@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/types/news";
 import { formatRelative } from "@/lib/utils/date";
 import Badge from "@/components/ui/Badge";
+import SafeImage from "@/components/ui/SafeImage";
 import {
   useLocale,
   useLocalizedPath,
@@ -31,8 +31,8 @@ export default function NewsCard({ article }: NewsCardProps) {
       href={lp(`actualites/${article.slug}`)}
       className="group overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md"
     >
-      <div className="relative aspect-[16/10] bg-primary">
-        <Image
+      <div className="relative aspect-[16/10] bg-gray-100">
+        <SafeImage
           src={article.image}
           alt={article.title}
           fill

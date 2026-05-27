@@ -14,10 +14,13 @@ const initialState: NewsState = {
   error: null,
 };
 
-export const fetchNews = createAsyncThunk("news/fetchAll", async () => {
-  const res = await axiosClient.post<Article[]>("/api/news");
-  return res.data;
-});
+export const fetchNews = createAsyncThunk(
+  "news/fetchAll",
+  async (locale?: string) => {
+    const res = await axiosClient.post<Article[]>("/api/news", { locale });
+    return res.data;
+  }
+);
 
 const newsSlice = createSlice({
   name: "news",

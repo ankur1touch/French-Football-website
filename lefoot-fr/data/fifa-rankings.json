@@ -1,0 +1,16 @@
+[
+  { "rank": 1, "team": "Argentina", "teamId": 26, "points": 1855, "previousRank": 1 },
+  { "rank": 2, "team": "France", "teamId": 2, "points": 1845, "previousRank": 2 },
+  { "rank": 3, "team": "Brazil", "teamId": 6, "points": 1810, "previousRank": 3 },
+  { "rank": 4, "team": "England", "teamId": 10, "points": 1795, "previousRank": 4 },
+  { "rank": 5, "team": "Belgium", "teamId": 1, "points": 1780, "previousRank": 5 },
+  { "rank": 6, "team": "Portugal", "teamId": 27, "points": 1765, "previousRank": 6 },
+  { "rank": 7, "team": "Spain", "teamId": 9, "points": 1750, "previousRank": 8 },
+  { "rank": 8, "team": "Netherlands", "teamId": 11, "points": 1740, "previousRank": 7 },
+  { "rank": 9, "team": "Italy", "teamId": 768, "points": 1720, "previousRank": 9 },
+  { "rank": 10, "team": "Croatia", "teamId": 3, "points": 1710, "previousRank": 10 },
+  { "rank": 11, "team": "Morocco", "teamId": 31, "points": 1695, "previousRank": 11 },
+  { "rank": 12, "team": "Senegal", "teamId": 13, "points": 1680, "previousRank": 14 },
+  { "rank": 13, "team": "Cameroon", "teamId": 28, "points": 1665, "previousRank": 15 },
+  { "rank": 14, "team": "Ivory Coast", "teamId": 25, "points": 1650, "previousRank": 16 }
+]

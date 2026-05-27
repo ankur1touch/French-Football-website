@@ -1,9 +1,10 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { switchLocalePath, type Locale } from "@/lib/i18n/config";
 import { useLocale } from "@/components/providers/LocaleProvider";
+import { usePathname } from "next/navigation";
 
 const options: { code: Locale; label: string }[] = [
   { code: "fr", label: "FR" },
@@ -13,20 +14,16 @@ const options: { code: Locale; label: string }[] = [
 export default function LanguageSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
-  const router = useRouter();
-
-  function switchTo(next: Locale) {
-    if (next === locale) return;
-    router.push(switchLocalePath(pathname, next));
-  }
 
   return (
-    <div className="flex items-center gap-1 rounded border border-gray-600 p-0.5">
+    <div
+      className="flex items-center gap-1 rounded border border-gray-600 p-0.5"
+      suppressHydrationWarning
+    >
       {options.map(({ code, label }) => (
-        <button
+        <Link
           key={code}
-          type="button"
-          onClick={() => switchTo(code)}
+          href={switchLocalePath(pathname, code)}
           className={cn(
             "rounded px-1.5 py-0.5 text-[10px] font-semibold transition-colors",
             locale === code
@@ -34,10 +31,11 @@ export default function LanguageSwitcher() {
               : "text-gray-300 hover:text-white"
           )}
           aria-label={code === "fr" ? "Français" : "English"}
-          aria-pressed={locale === code}
+          aria-current={locale === code ? "true" : undefined}
+          suppressHydrationWarning
         >
           {label}
-        </button>
+        </Link>
       ))}
     </div>
   );

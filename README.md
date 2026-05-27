@@ -27,8 +27,24 @@ Copy `lefoot-fr/.env.local.example` to `lefoot-fr/.env.local` and configure:
 - `FOOTBALL_PROXY_BASE_URL` — server-side football API proxy
 - `FOOTBALL_SEASON`, `FOOTBALL_PRIMARY_LEAGUE_ID` — World Cup 2026 defaults
 - `NEXT_PUBLIC_RSS_*` — news RSS feeds
+- `CMS_API_TOKEN` — secret for `POST /api/articles` (n8n publishing)
+- `MONGODB_URI` / `MONGODB_DB` — CMS articles on Amplify (optional locally; uses MDX in `content/articles/`)
 
 Never commit `.env.local` — it is gitignored.
+
+## CMS publishing (n8n)
+
+1. Set `CMS_API_TOKEN` in Amplify environment variables
+2. Configure n8n HTTP node: `POST https://your-domain.com/api/articles`
+3. Headers: `Authorization: Bearer <CMS_API_TOKEN>`, `Content-Type: application/json`
+4. Body fields: `title`, `content`, `language` (`fr`|`en`), optional `slug`, `imageUrl`, `tags`, `isWorldCup2026`
+5. Without `MONGODB_URI`, articles save as MDX in `content/articles/` (local dev)
+
+## SEO routes
+
+- `/rss.xml` — site RSS feed
+- `/sitemap.xml` — auto-generated sitemap
+- `/robots.txt` — crawler rules
 
 ## Deploy on AWS Amplify
 
@@ -54,7 +70,8 @@ npm run lint     # ESLint
 - **State:** Redux Toolkit
 - **Styling:** Tailwind CSS v4
 - **Data:** Football proxy API (`api.labenditaec.com`) with JSON mock fallback
-- **News:** RSS feeds + local mock data
+- **News:** 6 RSS feeds + CMS (MongoDB/MDX) + mock fallback
+- **Fonts:** Bebas Neue (display) + Outfit (body)
 - **i18n:** French (`/fr`) and English (`/en`) routes
 
 ## License

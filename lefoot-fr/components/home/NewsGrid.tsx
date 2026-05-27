@@ -1,19 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useAppSelector } from "@/store/hooks";
 import { formatRelative } from "@/lib/utils/date";
 import Badge from "@/components/ui/Badge";
 import Skeleton from "@/components/ui/Skeleton";
+import SafeImage from "@/components/ui/SafeImage";
 import {
   useLocale,
   useLocalizedPath,
   useTranslations,
 } from "@/components/providers/LocaleProvider";
 import type { NewsCategory } from "@/types/news";
-
-const cardColors = ["bg-blue-600", "bg-emerald-600", "bg-purple-600", "bg-amber-700"];
 
 export default function NewsGrid() {
   const { articles, status } = useAppSelector((state) => state.news);
@@ -49,19 +47,19 @@ export default function NewsGrid() {
         {t.home.latestNews}
       </h2>
       <div className="grid gap-4 sm:grid-cols-2">
-        {gridArticles.map((article, i) => (
+        {gridArticles.map((article) => (
           <Link
             key={article.id}
             href={lp(`actualites/${article.slug}`)}
             className="group overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md"
           >
-            <div className={`relative aspect-[16/10] ${cardColors[i % cardColors.length]}`}>
-              <Image
+            <div className="relative aspect-[16/10] bg-gray-100">
+              <SafeImage
                 src={article.image}
                 alt={article.title}
                 fill
                 sizes="(max-width: 640px) 100vw, 50vw"
-                className="object-cover opacity-80 mix-blend-overlay transition-transform group-hover:scale-105"
+                className="object-cover transition-transform group-hover:scale-105"
               />
             </div>
             <div className="p-4">

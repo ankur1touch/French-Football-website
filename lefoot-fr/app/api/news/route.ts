@@ -1,41 +1,35 @@
-import { readFileSync } from "fs";
-import { join } from "path";
 import { NextResponse } from "next/server";
-import { fetchRSSFeed } from "@/lib/rss";
-import type { Article } from "@/types/news";
+import { getAllArticles } from "@/lib/articles";
+import { fetchAggregatedRSS } from "@/lib/rss";
+import { rssToNewsItems } from "@/lib/rss-news";
 
 export const revalidate = 300;
 
-function readLocalJSON<T>(filename: string): T {
-  const filePath = join(process.cwd(), "data", filename);
-  return JSON.parse(readFileSync(filePath, "utf-8")) as T;
-}
+export async function POST(req: Request) {
+  let category: string | undefined;
+  let locale: string | undefined;
 
-export async function POST() {
-  const mockNews = readLocalJSON<Article[]>("news.json");
-
-  const rssUrl = process.env.NEXT_PUBLIC_RSS_GOAL_FR;
-  if (rssUrl) {
-    const rssItems = await Promise.race([
-      fetchRSSFeed(rssUrl),
-      new Promise<Awaited<ReturnType<typeof fetchRSSFeed>>>((resolve) =>
-        setTimeout(() => resolve([]), 3000)
-      ),
-    ]);
-    const rssArticles: Article[] = rssItems.slice(0, 5).map((item, i) => ({
-      id: `rss-${i}`,
-      slug: `rss-${i}`,
-      title: item.title ?? "Sans titre",
-      category: "International" as const,
-      image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&h=500&fit=crop",
-      excerpt: item.contentSnippet ?? "",
-      body: item.contentSnippet ?? "",
-      date: item.pubDate ?? new Date().toISOString(),
-      author: "RSS",
-      readTime: 3,
-    }));
-    return NextResponse.json([...mockNews, ...rssArticles]);
+  try {
+    const body = await req.json();
+    category = body.category;
+    locale = body.locale;
+  } catch {
+    /* empty body ok */
   }
 
-  return NextResponse.json(mockNews);
+  const [cmsArticles, rssItems] = await Promise.all([
+    getAllArticles({ category, locale }),
+    fetchAggregatedRSS().catch(() => []),
+  ]);
+
+  const rssArticles = rssToNewsItems(rssItems);
+  const merged = [...cmsArticles, ...rssArticles].sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
+  return NextResponse.json(merged, {
+    headers: {
+      "Cache-Control": "s-maxage=300, stale-while-revalidate=600",
+    },
+  });
 }

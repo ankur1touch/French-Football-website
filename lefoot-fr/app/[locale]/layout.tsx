@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import TopBar from "@/components/layout/TopBar";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import BreakingTicker from "@/components/home/BreakingTicker";
+import BreakingTicker from "@/components/layout/BreakingTicker";
 import { LocaleProvider } from "@/components/providers/LocaleProvider";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 
@@ -20,7 +20,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   if (!isLocale(locale)) notFound();
 
   return (
-    <LocaleProvider>
+    <LocaleProvider initialLocale={locale}>
       <TopBar />
       <Header />
       <BreakingTicker />

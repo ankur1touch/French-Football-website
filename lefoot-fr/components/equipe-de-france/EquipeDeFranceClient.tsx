@@ -18,15 +18,18 @@ const convocations = [
   { name: "Jules Koundé", club: "Barcelone", position: "Défenseur" },
 ];
 
+import { useLocale } from "@/components/providers/LocaleProvider";
+
 export default function EquipeDeFranceClient() {
   const dispatch = useAppDispatch();
+  const locale = useLocale();
   const { articles, status, error } = useAppSelector((state) => state.news);
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchNews());
+      dispatch(fetchNews(locale));
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, locale]);
 
   const fraNews = useMemo(
     () => articles.filter((a) => a.category === "Équipe de France"),
@@ -50,7 +53,7 @@ export default function EquipeDeFranceClient() {
     return (
       <div className="py-16 text-center">
         <p className="text-gray-600">{error}</p>
-        <Button className="mt-4" onClick={() => dispatch(fetchNews())}>
+        <Button className="mt-4" onClick={() => dispatch(fetchNews(locale))}>
           Réessayer
         </Button>
       </div>

@@ -10,6 +10,8 @@ import playersReducer from "./features/playersSlice";
 import matchDetailReducer from "./features/matchDetailSlice";
 import playerDetailReducer from "./features/playerDetailSlice";
 import teamDetailReducer from "./features/teamDetailSlice";
+import fifaRankingsReducer from "./features/fifaRankingsSlice";
+import searchReducer from "./features/searchSlice";
 
 export const makeStore = () =>
   configureStore({
@@ -25,6 +27,8 @@ export const makeStore = () =>
       matchDetail: matchDetailReducer,
       playerDetail: playerDetailReducer,
       teamDetail: teamDetailReducer,
+      fifaRankings: fifaRankingsReducer,
+      search: searchReducer,
     },
   });
 

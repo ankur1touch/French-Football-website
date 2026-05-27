@@ -10,13 +10,22 @@
   --color-form-win: #2d6a4f;
   --color-form-draw: #888880;
   --color-form-loss: #c1440e;
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-outfit);
+  --font-display: var(--font-display);
 }
 
 body {
   background: var(--color-surface);
   color: #171717;
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-outfit), system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #1a4aa0 0%, #003087 45%, #1a1a2e 100%);
 }
 
 @keyframes marquee {
@@ -29,7 +38,22 @@ body {
 }
 
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 35s linear infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes shimmer {
@@ -45,4 +69,13 @@ body {
   background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }

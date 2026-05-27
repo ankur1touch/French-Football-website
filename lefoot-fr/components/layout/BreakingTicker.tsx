@@ -27,13 +27,13 @@ export default function BreakingTicker() {
   const tickerText = headlines.join(" · ");
 
   return (
-    <div className="bg-primary-dark text-white">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-hidden px-4 py-2">
-        <Badge variant="direct" className="shrink-0 text-[10px]">
+    <div className="bg-live-red text-white">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-hidden px-4 py-1.5">
+        <Badge variant="direct" className="shrink-0 bg-white/20 text-[10px] text-white">
           {t.common.breaking}
         </Badge>
         <div className="relative flex-1 overflow-hidden">
-          <div className="animate-marquee whitespace-nowrap text-sm">
+          <div className="animate-marquee whitespace-nowrap text-sm font-medium">
             <span>{tickerText}</span>
             <span className="mx-8">{tickerText}</span>
           </div>

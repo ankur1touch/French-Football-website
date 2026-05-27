@@ -1,20 +1,13 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { fetchNews } from "@/store/features/newsSlice";
-import { fetchTeams } from "@/store/features/teamsSlice";
-import { fetchPlayers } from "@/store/features/playersSlice";
-import { fetchMatches } from "@/store/features/matchesSlice";
+import { fetchSearch, resetSearch } from "@/store/features/searchSlice";
 import { useLocalizedPath, useTranslations } from "@/components/providers/LocaleProvider";
 import SearchBar from "@/components/layout/SearchBar";
 import Skeleton from "@/components/ui/Skeleton";
-
-function matchesQuery(text: string, query: string) {
-  return text.toLowerCase().includes(query.toLowerCase());
-}
 
 export default function SearchClient() {
   const t = useTranslations();
@@ -22,65 +15,29 @@ export default function SearchClient() {
   const searchParams = useSearchParams();
   const query = (searchParams.get("q") ?? "").trim();
   const dispatch = useAppDispatch();
-
-  const news = useAppSelector((s) => s.news);
-  const teams = useAppSelector((s) => s.teams);
-  const players = useAppSelector((s) => s.players);
-  const matches = useAppSelector((s) => s.matches);
+  const { results, status } = useAppSelector((s) => s.search);
 
   useEffect(() => {
-    if (news.status === "idle") dispatch(fetchNews());
-    if (teams.status === "idle") dispatch(fetchTeams());
-    if (players.status === "idle") dispatch(fetchPlayers());
-    if (matches.status === "idle") dispatch(fetchMatches());
-  }, [dispatch, news.status, teams.status, players.status, matches.status]);
-
-  const loading =
-    news.status === "loading" ||
-    teams.status === "loading" ||
-    players.status === "loading" ||
-    matches.status === "loading" ||
-    news.status === "idle" ||
-    teams.status === "idle" ||
-    players.status === "idle" ||
-    matches.status === "idle";
-
-  const results = useMemo(() => {
     if (!query) {
-      return { news: [], teams: [], players: [], matches: [] };
+      dispatch(resetSearch());
+      return;
     }
-    return {
-      news: news.articles.filter(
-        (a) =>
-          matchesQuery(a.title, query) ||
-          matchesQuery(a.excerpt, query) ||
-          matchesQuery(a.category, query)
-      ),
-      teams: teams.teams.filter((team) => matchesQuery(team.name, query)),
-      players: players.players.filter(
-        (p) =>
-          matchesQuery(p.name, query) ||
-          matchesQuery(p.club, query) ||
-          matchesQuery(p.nationality, query)
-      ),
-      matches: matches.matches.filter(
-        (m) =>
-          matchesQuery(m.homeTeam, query) ||
-          matchesQuery(m.awayTeam, query) ||
-          matchesQuery(m.competition, query)
-      ),
-    };
-  }, [query, news.articles, teams.teams, players.players, matches.matches]);
+    dispatch(fetchSearch(query));
+  }, [query, dispatch]);
 
-  const total =
-    results.news.length +
-    results.teams.length +
-    results.players.length +
-    results.matches.length;
+  const loading = status === "loading" || status === "idle";
+  const total = results
+    ? results.news.length +
+      results.teams.length +
+      results.players.length +
+      results.matches.length
+    : 0;
 
   return (
     <div>
-      <h1 className="mb-2 text-3xl font-bold text-primary">{t.search.title}</h1>
+      <h1 className="font-display text-3xl uppercase tracking-wide text-primary">
+        {t.search.title}
+      </h1>
       <p className="mb-6 text-gray-500">{t.search.hint}</p>
 
       <div className="mb-8 max-w-xl">
@@ -99,13 +56,13 @@ export default function SearchClient() {
         <p className="py-12 text-center text-gray-500">{t.search.noResults}</p>
       ) : (
         <div className="space-y-10">
-          {results.news.length > 0 && (
+          {results!.news.length > 0 && (
             <section>
               <h2 className="mb-4 text-lg font-bold text-gray-900">
-                {t.search.sections.news} ({results.news.length})
+                {t.search.sections.news} ({results!.news.length})
               </h2>
               <ul className="divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white">
-                {results.news.map((article) => (
+                {results!.news.map((article) => (
                   <li key={article.id}>
                     <Link
                       href={lp(`actualites/${article.slug}`)}
@@ -120,13 +77,13 @@ export default function SearchClient() {
             </section>
           )}
 
-          {results.teams.length > 0 && (
+          {results!.teams.length > 0 && (
             <section>
               <h2 className="mb-4 text-lg font-bold text-gray-900">
-                {t.search.sections.teams} ({results.teams.length})
+                {t.search.sections.teams} ({results!.teams.length})
               </h2>
               <ul className="divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white">
-                {results.teams.map((team) => (
+                {results!.teams.map((team) => (
                   <li key={team.id}>
                     <Link
                       href={lp(`equipes/${team.id}`)}
@@ -141,13 +98,13 @@ export default function SearchClient() {
             </section>
           )}
 
-          {results.players.length > 0 && (
+          {results!.players.length > 0 && (
             <section>
               <h2 className="mb-4 text-lg font-bold text-gray-900">
-                {t.search.sections.players} ({results.players.length})
+                {t.search.sections.players} ({results!.players.length})
               </h2>
               <ul className="divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white">
-                {results.players.map((player) => (
+                {results!.players.map((player) => (
                   <li key={player.id}>
                     <Link
                       href={lp(`joueurs/${player.id}`)}
@@ -164,13 +121,13 @@ export default function SearchClient() {
             </section>
           )}
 
-          {results.matches.length > 0 && (
+          {results!.matches.length > 0 && (
             <section>
               <h2 className="mb-4 text-lg font-bold text-gray-900">
-                {t.search.sections.matches} ({results.matches.length})
+                {t.search.sections.matches} ({results!.matches.length})
               </h2>
               <ul className="divide-y divide-gray-100 rounded-lg border border-gray-200 bg-white">
-                {results.matches.map((match) => (
+                {results!.matches.map((match) => (
                   <li key={match.id}>
                     <Link
                       href={lp(`matchs/${match.id}`)}

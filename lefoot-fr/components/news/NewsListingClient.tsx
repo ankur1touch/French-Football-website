@@ -8,19 +8,20 @@ import FeaturedArticle from "./FeaturedArticle";
 import NewsCard from "./NewsCard";
 import Skeleton from "@/components/ui/Skeleton";
 import Button from "@/components/ui/Button";
-import { useTranslations } from "@/components/providers/LocaleProvider";
+import { useTranslations, useLocale } from "@/components/providers/LocaleProvider";
 
 export default function NewsListingClient() {
   const dispatch = useAppDispatch();
   const t = useTranslations();
+  const locale = useLocale();
   const { articles, status, error } = useAppSelector((state) => state.news);
   const [category, setCategory] = useState<NewsFilterCategory>("Tous");
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchNews());
+      dispatch(fetchNews(locale));
     }
-  }, [dispatch, status]);
+  }, [dispatch, status, locale]);
 
   const filtered = useMemo(() => {
     if (category === "Tous") return articles;
@@ -48,7 +49,7 @@ export default function NewsListingClient() {
     return (
       <div className="py-16 text-center">
         <p className="text-gray-600">{error ?? t.common.loadError}</p>
-        <Button className="mt-4" onClick={() => dispatch(fetchNews())}>
+        <Button className="mt-4" onClick={() => dispatch(fetchNews(locale))}>
           {t.common.retry}
         </Button>
       </div>

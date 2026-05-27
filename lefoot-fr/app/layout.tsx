@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Bebas_Neue, Outfit } from "next/font/google";
 import StoreProvider from "@/store/StoreProvider";
 import LocaleHtmlLang from "@/components/layout/LocaleHtmlLang";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const bebasNeue = Bebas_Neue({
+  variable: "--font-display",
+  weight: "400",
+  subsets: ["latin"],
+});
+
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -21,8 +27,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-surface">
+    <html
+      lang="fr"
+      className={`${bebasNeue.variable} ${outfit.variable} h-full scroll-smooth antialiased`}
+      suppressHydrationWarning
+    >
+      <body className="flex min-h-full flex-col bg-surface font-sans">
         <StoreProvider>
           <LocaleHtmlLang />
           {children}

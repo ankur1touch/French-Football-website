@@ -24,6 +24,9 @@ import type { Transfer } from "@/types/transfer";
 import type { MatchDetail } from "@/types/matchDetail";
 import type { PlayerDetailResponse } from "@/types/player";
 import type { TeamDetailResponse } from "@/types/team";
+import type { FifaRankingsData } from "@/types/fifa";
+import { countryIdToTeamId } from "@/lib/countries";
+import { getAllArticles } from "@/lib/articles";
 import {
   buildMatchDetail,
   mapDetailSquad,
@@ -525,5 +528,123 @@ export async function getTeamDetail(id: string): Promise<TeamDetailResponse | nu
     fixtures: fixtures.map(mapFixtureToH2H),
     results: results.map(mapFixtureToH2H),
     standings: allRows,
+  };
+}
+
+export type MatchTab = "live" | "upcoming" | "results" | "all";
+
+export async function getMatchesFiltered(options?: {
+  tab?: MatchTab;
+  countryId?: string;
+}): Promise<Match[]> {
+  let matches = await getAllMatches();
+  const teamId = countryIdToTeamId(options?.countryId);
+
+  if (teamId) {
+    const tid = String(teamId);
+    matches = matches.filter(
+      (m) => m.homeTeamId === tid || m.awayTeamId === tid
+    );
+  }
+
+  const tab = options?.tab ?? "all";
+  if (tab === "live") return matches.filter((m) => m.status === "live");
+  if (tab === "upcoming") return matches.filter((m) => m.status === "upcoming");
+  if (tab === "results") return matches.filter((m) => m.status === "finished");
+  return matches;
+}
+
+export async function getRankingsFiltered(options?: {
+  countryId?: string;
+  leagueId?: number;
+}): Promise<RankingsData> {
+  const league = options?.leagueId ?? primaryLeagueId;
+  const blocks = await fetchFootball<ApiStandingsBlock[]>("standings", {
+    league,
+    season,
+  }).catch(() => [] as ApiStandingsBlock[]);
+
+  const data = mapRankings(blocks[0] ?? {});
+
+  if (options?.countryId && data.groups) {
+    const teamId = countryIdToTeamId(options.countryId);
+    if (teamId) {
+      data.groups = data.groups.map((g) => ({
+        ...g,
+        rows: g.rows.filter((r) => r.teamId === String(teamId)),
+      }));
+    }
+  }
+
+  return data;
+}
+
+export async function getFifaRankings(): Promise<FifaRankingsData> {
+  try {
+    const remote = await fetchFootball<{ rank?: number; team?: { name?: string; id?: number; logo?: string }; points?: number }[]>(
+      "rankings/fifa"
+    ).catch(() => null);
+
+    if (remote?.length) {
+      return {
+        updatedAt: new Date().toISOString(),
+        rankings: remote.map((r, i) => ({
+          rank: r.rank ?? i + 1,
+          team: r.team?.name ?? "—",
+          teamId: r.team?.id ?? 0,
+          logo: r.team?.logo,
+          points: r.points ?? 0,
+        })),
+      };
+    }
+  } catch {
+    /* fallback */
+  }
+
+  const mock = readLocalJSON<FifaRankingsData["rankings"]>("fifa-rankings.json");
+  return { updatedAt: new Date().toISOString(), rankings: mock };
+}
+
+export interface SearchResults {
+  news: import("@/types/news").NewsItem[];
+  teams: Team[];
+  players: Player[];
+  matches: Match[];
+}
+
+export async function searchAll(query: string): Promise<SearchResults> {
+  const q = query.toLowerCase().trim();
+  if (!q) return { news: [], teams: [], players: [], matches: [] };
+
+  const [news, teams, players, matches] = await Promise.all([
+    getAllArticles(),
+    getTeams(),
+    getPlayers(),
+    getAllMatches(),
+  ]);
+
+  return {
+    news: news.filter(
+      (a) =>
+        a.title.toLowerCase().includes(q) ||
+        a.excerpt.toLowerCase().includes(q) ||
+        a.category.toLowerCase().includes(q)
+    ),
+    teams: teams.filter(
+      (t) =>
+        t.name.toLowerCase().includes(q) || t.confederation.toLowerCase().includes(q)
+    ),
+    players: players.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.club.toLowerCase().includes(q) ||
+        p.nationality.toLowerCase().includes(q)
+    ),
+    matches: matches.filter(
+      (m) =>
+        m.homeTeam.toLowerCase().includes(q) ||
+        m.awayTeam.toLowerCase().includes(q) ||
+        m.competition.toLowerCase().includes(q)
+    ),
   };
 }

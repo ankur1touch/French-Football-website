@@ -17,9 +17,15 @@ interface LocaleContextValue {
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
-export function LocaleProvider({ children }: { children: React.ReactNode }) {
+export function LocaleProvider({
+  children,
+  initialLocale,
+}: {
+  children: React.ReactNode;
+  initialLocale: Locale;
+}) {
   const pathname = usePathname();
-  const locale = getLocaleFromPath(pathname);
+  const locale = getLocaleFromPath(pathname) || initialLocale;
 
   const value = useMemo(
     () => ({
