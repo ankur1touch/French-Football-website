@@ -9,7 +9,7 @@ interface PageProps {
   searchParams: Promise<{ page?: string }>;
 }
 
-export default async function TransfertsPage({ params, searchParams }: PageProps) {
+export default async function ArticleIndexPage({ params, searchParams }: PageProps) {
   const { locale } = await params;
   const { page } = await searchParams;
   const currentPage = Math.max(1, parseInt(page ?? "1", 10));
@@ -17,11 +17,12 @@ export default async function TransfertsPage({ params, searchParams }: PageProps
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
       <CmsArticleList
-        endpoint={OnzeActuEndpoint.Transferts}
-        title="Transferts"
+        endpoint={OnzeActuEndpoint.HomePage}
+        title="Toutes les actualités"
         page={currentPage}
         limit={20}
-        basePath={`/${locale}/transferts`}
+        basePath={`/${locale}/article`}
+        locale={locale}
       />
     </div>
   );

@@ -13,6 +13,28 @@ export const ALLOWED_IMAGE_HOSTS = [
   "e2.365dm.com",
   "minutemediacdn.com",
   "sportbible.com",
+  "onzeactu.com",
+  "amazonaws.com",
+  "s3.amazonaws.com",
+  // Performgroup / Getty / Omnisport CDN
+  "performgroup.com",
+  "images.performgroup.com",
+  // Yahoo / Yimg
+  "yimg.com",
+  "s.yimg.com",
+  // Getty / iStockphoto
+  "gettyimages.com",
+  "media.gettyimages.com",
+  // AFP / L'Equipe / various French sports media
+  "medias.lequipe.fr",
+  "media.lequipe.fr",
+  "afp.com",
+  // Common news CDNs
+  "imago-images.de",
+  "static.independent.co.uk",
+  "i2.wp.com",
+  "i1.wp.com",
+  "i0.wp.com",
 ] as const;
 
 export function isAllowedImageUrl(url: string): boolean {

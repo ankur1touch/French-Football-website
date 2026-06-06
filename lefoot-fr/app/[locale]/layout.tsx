@@ -3,6 +3,7 @@ import TopBar from "@/components/layout/TopBar";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BreakingTicker from "@/components/layout/BreakingTicker";
+import GoogleTranslateSync from "@/components/layout/GoogleTranslateSync";
 import { LocaleProvider } from "@/components/providers/LocaleProvider";
 import { isLocale, locales, type Locale } from "@/lib/i18n/config";
 
@@ -21,6 +22,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
 
   return (
     <LocaleProvider initialLocale={locale}>
+      <GoogleTranslateSync />
       <TopBar />
       <Header />
       <BreakingTicker />

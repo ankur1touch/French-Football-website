@@ -27,6 +27,7 @@ import type { TeamDetailResponse } from "@/types/team";
 import type { FifaRankingsData } from "@/types/fifa";
 import { countryIdToTeamId } from "@/lib/countries";
 import { getAllArticles } from "@/lib/articles";
+import { getRssArticles } from "@/lib/rss-news";
 import {
   buildMatchDetail,
   mapDetailSquad,
@@ -495,39 +496,90 @@ export async function getPlayerDetail(id: string): Promise<PlayerDetailResponse 
 
 export async function getTeamDetail(id: string): Promise<TeamDetailResponse | null> {
   const teamId = await resolveTeamNumericId(id);
-  if (!teamId) return null;
 
-  const [teamRes, squadRes, fixturesRes, resultsRes, standingsRes] =
-    await Promise.allSettled([
-      fetchFootball<ApiTeamItem[]>("teams", { team: teamId }),
-      fetchFootball<ApiSquadItem[]>("players-squads", { team: teamId }),
-      fetchFootball<ApiFixtureItem[]>("fixtures", { team: teamId, next: 5 }),
-      fetchFootball<ApiFixtureItem[]>("fixtures", { team: teamId, last: 5 }),
-      fetchFootball<ApiStandingsBlock[]>("standings", {
-        league: primaryLeagueId,
-        season,
-      }),
-    ]);
-
-  const teamData = teamRes.status === "fulfilled" ? teamRes.value : [];
-  const squadData = squadRes.status === "fulfilled" ? squadRes.value : [];
-  const fixtures = fixturesRes.status === "fulfilled" ? fixturesRes.value : [];
-  const results = resultsRes.status === "fulfilled" ? resultsRes.value : [];
-  const standingsBlocks = standingsRes.status === "fulfilled" ? standingsRes.value : [];
-
-  const teamItem = teamData[0];
-  if (!teamItem) return null;
+  // Fetch standings upfront — used for standings rows and as team info fallback
+  const standingsBlocks = await fetchFootball<ApiStandingsBlock[]>("standings", {
+    league: primaryLeagueId,
+    season,
+  }).catch(() => [] as ApiStandingsBlock[]);
 
   const tables =
     standingsBlocks[0]?.standings ?? standingsBlocks[0]?.league?.standings ?? [];
   const allRows = tables.flat().map(mapTeamDetailStanding);
 
+  if (teamId) {
+    const [teamRes, squadRes, fixturesRes, resultsRes] = await Promise.allSettled([
+      fetchFootball<ApiTeamItem[]>("teams", { team: teamId }),
+      fetchFootball<ApiSquadItem[]>("players-squads", { team: teamId }),
+      fetchFootball<ApiFixtureItem[]>("fixtures", { team: teamId, next: 5 }),
+      fetchFootball<ApiFixtureItem[]>("fixtures", { team: teamId, last: 5 }),
+    ]);
+
+    const teamData = teamRes.status === "fulfilled" ? teamRes.value : [];
+    const squadData = squadRes.status === "fulfilled" ? squadRes.value : [];
+    const fixtures = fixturesRes.status === "fulfilled" ? fixturesRes.value : [];
+    const results = resultsRes.status === "fulfilled" ? resultsRes.value : [];
+
+    const teamItem = teamData[0];
+    if (teamItem) {
+      return {
+        team: mapTeamInfo(teamItem),
+        squad: mapDetailSquad(squadData as never[]),
+        fixtures: fixtures.map(mapFixtureToH2H),
+        results: results.map(mapFixtureToH2H),
+        standings: allRows,
+      };
+    }
+
+    // Team detail endpoint returned nothing — build info from the standings row
+    const standingRow = tables.flat().find((r) => r.team?.id === teamId);
+    if (standingRow?.team) {
+      return {
+        team: {
+          id: standingRow.team.id,
+          name: standingRow.team.name,
+          code: standingRow.team.name.slice(0, 3).toUpperCase(),
+          logo: standingRow.team.logo ?? "",
+          country: "—",
+          founded: 0,
+          venue: { id: 0, name: "—", address: "", city: "", capacity: 0, image: "" },
+        },
+        squad: mapDetailSquad(squadData as never[]),
+        fixtures: fixtures.map(mapFixtureToH2H),
+        results: results.map(mapFixtureToH2H),
+        standings: allRows,
+      };
+    }
+  }
+
+  // Last resort: mock data (slug-based IDs like "france", "senegal")
+  if (!footballConfig.mockFallback) return null;
+
+  const mockTeams = readLocalJSON<import("@/types/team").Team[]>("teams.json");
+  const mockTeam = mockTeams.find((t) => t.id === id || String(t.id) === id);
+  if (!mockTeam) return null;
+
   return {
-    team: mapTeamInfo(teamItem),
-    squad: mapDetailSquad(squadData as never[]),
-    fixtures: fixtures.map(mapFixtureToH2H),
-    results: results.map(mapFixtureToH2H),
-    standings: allRows,
+    team: {
+      id: 0,
+      name: mockTeam.name,
+      code: mockTeam.id.slice(0, 3).toUpperCase(),
+      logo: mockTeam.image,
+      country: mockTeam.confederation,
+      founded: 0,
+      venue: { id: 0, name: "—", address: "", city: "", capacity: 0, image: "" },
+    },
+    squad: (mockTeam.squad ?? []).map((p, i) => ({
+      id: i + 1,
+      name: p.name,
+      age: p.age ?? 0,
+      number: null,
+      position: p.position ?? "—",
+      photo: "",
+    })),
+    fixtures: [],
+    results: [],
+    standings: [],
   };
 }
 
@@ -616,12 +668,20 @@ export async function searchAll(query: string): Promise<SearchResults> {
   const q = query.toLowerCase().trim();
   if (!q) return { news: [], teams: [], players: [], matches: [] };
 
-  const [news, teams, players, matches] = await Promise.all([
+  const [cmsArticles, rssArticles, teams, players, matches] = await Promise.all([
     getAllArticles(),
+    getRssArticles().catch(() => []),
     getTeams(),
     getPlayers(),
     getAllMatches(),
   ]);
+
+  const seenSlugs = new Set<string>();
+  const news = [...cmsArticles, ...rssArticles].filter((a) => {
+    if (seenSlugs.has(a.slug)) return false;
+    seenSlugs.add(a.slug);
+    return true;
+  });
 
   return {
     news: news.filter(

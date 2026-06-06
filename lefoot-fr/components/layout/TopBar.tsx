@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { formatDate } from "@/lib/utils/date";
 import Link from "next/link";
-import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
 import {
   useLocale,
   useLocalizedPath,
@@ -50,14 +49,6 @@ export default function TopBar() {
           </Link>
         </div>
         <div className="flex items-center gap-3">
-          <LanguageSwitcher />
-          <Link
-            href="#"
-            className="transition-colors hover:text-white"
-            suppressHydrationWarning
-          >
-            {t.topbar.signIn}
-          </Link>
         </div>
       </div>
     </div>

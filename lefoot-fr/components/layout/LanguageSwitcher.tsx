@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { switchLocalePath, type Locale } from "@/lib/i18n/config";
 import { useLocale } from "@/components/providers/LocaleProvider";
@@ -11,9 +10,22 @@ const options: { code: Locale; label: string }[] = [
   { code: "en", label: "EN" },
 ];
 
+function setGoogTransCookie(to: Locale) {
+  const value = to === "en" ? "/fr/en" : "/fr/fr";
+  document.cookie = `googtrans=${value};path=/`;
+  document.cookie = `googtrans=${value};domain=${window.location.hostname};path=/`;
+}
+
 export default function LanguageSwitcher() {
   const locale = useLocale();
   const pathname = usePathname();
+
+  function handleSwitch(code: Locale) {
+    if (code === locale) return;
+    setGoogTransCookie(code);
+    // Full reload so Google Translate applies immediately
+    window.location.href = switchLocalePath(pathname, code);
+  }
 
   return (
     <div
@@ -21,9 +33,9 @@ export default function LanguageSwitcher() {
       suppressHydrationWarning
     >
       {options.map(({ code, label }) => (
-        <Link
+        <button
           key={code}
-          href={switchLocalePath(pathname, code)}
+          onClick={() => handleSwitch(code)}
           className={cn(
             "rounded px-1.5 py-0.5 text-[10px] font-semibold transition-colors",
             locale === code
@@ -35,7 +47,7 @@ export default function LanguageSwitcher() {
           suppressHydrationWarning
         >
           {label}
-        </Link>
+        </button>
       ))}
     </div>
   );

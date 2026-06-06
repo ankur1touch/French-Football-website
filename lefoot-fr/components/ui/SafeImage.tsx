@@ -26,7 +26,8 @@ export default function SafeImage({
   className,
   priority,
 }: SafeImageProps) {
-  const [imgSrc, setImgSrc] = useState(isAllowedImageUrl(src) ? src : FALLBACK_NEWS_IMAGE);
+  const initialSrc = src && src.startsWith("http") ? src : FALLBACK_NEWS_IMAGE;
+  const [imgSrc, setImgSrc] = useState(initialSrc);
   const [failed, setFailed] = useState(false);
 
   if (failed) {
@@ -53,6 +54,7 @@ export default function SafeImage({
       sizes={sizes}
       priority={priority}
       className={className}
+      unoptimized={!isAllowedImageUrl(imgSrc)}
       onError={() => {
         if (imgSrc !== FALLBACK_NEWS_IMAGE) {
           setImgSrc(FALLBACK_NEWS_IMAGE);

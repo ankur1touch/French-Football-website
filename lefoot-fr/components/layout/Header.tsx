@@ -10,6 +10,7 @@ import {
   useLocalizedPath,
   useTranslations,
 } from "@/components/providers/LocaleProvider";
+import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
 
 export default function Header() {
   const pathname = usePathname();
@@ -75,6 +76,8 @@ export default function Header() {
           >
             <Search className="h-5 w-5" />
           </Link>
+
+          <LanguageSwitcher />
 
           <button
             className="lg:hidden"
