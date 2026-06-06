@@ -1,115 +1,220 @@
+"use client";
+
 import { cn } from "@/lib/cn";
 
 interface OnzeActuLogoProps {
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
   variant?: "light" | "dark";
+  locale?: "fr" | "en" | string;
 }
 
 const sizes = {
-  sm:  { width: 110, height: 28,  font: 16, badgeFont: 9,  r: 10, badgeW: 18, badgeH: 14 },
-  md:  { width: 148, height: 38,  font: 22, badgeFont: 12, r: 13, badgeW: 24, badgeH: 18 },
-  lg:  { width: 185, height: 48,  font: 28, badgeFont: 15, r: 17, badgeW: 30, badgeH: 23 },
-  xl:  { width: 230, height: 60,  font: 35, badgeFont: 18, r: 21, badgeW: 38, badgeH: 29 },
+  sm:  { w: 124, h: 32,  ball: 22, font: 17, sub: 7,  gap: 8  },
+  md:  { w: 162, h: 42,  ball: 30, font: 23, sub: 9,  gap: 10 },
+  lg:  { w: 200, h: 52,  ball: 36, font: 28, sub: 10, gap: 12 },
+  xl:  { w: 250, h: 64,  ball: 44, font: 35, sub: 12, gap: 14 },
 };
 
 export default function OnzeActuLogo({
   className,
   size = "md",
   variant = "light",
+  locale = "fr",
 }: OnzeActuLogoProps) {
-  const { width, height, font, badgeFont, r, badgeW, badgeH } = sizes[size];
-  const cx = r + 2;
-  const cy = height / 2;
+  const { w, h, ball, font, sub, gap } = sizes[size];
+  const isFr = locale !== "en";
+  const isLight = variant === "light";
 
-  const white   = "#FFFFFF";
-  const gold    = "#FFD700";
-  const navy    = "#003087";
-  const dark    = "#1a1a2e";
+  const cx = ball / 2 + 2;
+  const cy = h / 2;
+  const textX = ball + gap + 4;
+  const uid = `logo-${size}-${variant}-${locale}`;
 
-  const mainText  = variant === "light" ? white : navy;
-  const accentText = gold;
-  const bgCircle   = variant === "light" ? "rgba(255,255,255,0.12)" : "rgba(0,48,135,0.08)";
+  /* ── colour tokens ── */
+  const gold  = "#FFD700";
+  const navy  = "#003087";
+  const dark  = "#0d1117";
+  const white = "#FFFFFF";
 
-  // "11" badge x position (right after the circle)
-  const badgeX = cx * 2 + 4;
-  const badgeY = cy - badgeH / 2;
+  const onzeColor = isLight ? white : navy;
+  const actuColor = gold;
 
-  // "Onze" text starts after badge
-  const textX = badgeX + badgeW + 5;
+  /* ── locale accent colours ── */
+  // FR: bleu-blanc-rouge  |  EN: red-white-blue (union jack)
+  const strip = isFr
+    ? ["#002395", "#FFFFFF", "#ED2939"]   // French tricolor
+    : ["#CF142B", "#FFFFFF", "#00247D"];  // English flag
+
+  const stripH = Math.max(3, Math.round(h * 0.07));
+  const stripW = Math.round(w * 0.46);
+  const stripX = textX - 1;
+  const stripY = h - stripH - 1;
 
   return (
     <svg
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
+      width={w}
+      height={h}
+      viewBox={`0 0 ${w} ${h}`}
       xmlns="http://www.w3.org/2000/svg"
       aria-label="OnzeActu"
       role="img"
       className={cn(className)}
     >
-      {/* ── Circle backdrop ── */}
-      <circle cx={cx} cy={cy} r={r} fill={bgCircle} />
-      <circle cx={cx} cy={cy} r={r} fill="none" stroke={gold} strokeWidth="1.5" />
+      <defs>
+        {/* Ball radial gradient */}
+        <radialGradient id={`${uid}-ball`} cx="38%" cy="32%" r="65%">
+          <stop offset="0%" stopColor={isLight ? "rgba(255,255,255,0.25)" : "rgba(0,48,135,0.15)"} />
+          <stop offset="100%" stopColor={isLight ? "rgba(255,255,255,0.04)" : "rgba(0,48,135,0.04)"} />
+        </radialGradient>
 
-      {/* Football stitching lines */}
-      <line x1={cx - r * 0.5} y1={cy - r * 0.6} x2={cx + r * 0.5} y2={cy - r * 0.6}
-        stroke={gold} strokeWidth="1" strokeLinecap="round" />
-      <line x1={cx - r * 0.7} y1={cy} x2={cx + r * 0.7} y2={cy}
-        stroke={gold} strokeWidth="1" strokeLinecap="round" />
-      <line x1={cx - r * 0.5} y1={cy + r * 0.6} x2={cx + r * 0.5} y2={cy + r * 0.6}
-        stroke={gold} strokeWidth="1" strokeLinecap="round" />
-      {/* Center stitch cross */}
-      <line x1={cx} y1={cy - r * 0.7} x2={cx} y2={cy + r * 0.7}
-        stroke={gold} strokeWidth="0.8" strokeLinecap="round" />
+        {/* Gold shimmer on "Onze" */}
+        <linearGradient id={`${uid}-onze`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stopColor={isLight ? "#ffffff" : navy} />
+          <stop offset="50%"  stopColor={isLight ? "#e8edf5" : "#1a4aa0"} />
+          <stop offset="100%" stopColor={isLight ? "#c8d4e8" : navy} />
+        </linearGradient>
 
-      {/* ── "11" pill badge ── */}
-      <rect
-        x={badgeX}
-        y={badgeY}
-        width={badgeW}
-        height={badgeH}
-        rx={badgeH / 2}
-        fill={gold}
+        {/* Gold shimmer on "Actu" */}
+        <linearGradient id={`${uid}-actu`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stopColor="#FFE566" />
+          <stop offset="45%"  stopColor="#FFD700" />
+          <stop offset="100%" stopColor="#CC9900" />
+        </linearGradient>
+
+        {/* Drop shadow filter */}
+        <filter id={`${uid}-shadow`} x="-10%" y="-10%" width="130%" height="140%">
+          <feDropShadow dx="0" dy="1" stdDeviation="1.5"
+            floodColor={isLight ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0.15)"} />
+        </filter>
+      </defs>
+
+      {/* ════════════════════════════
+          FOOTBALL ICON
+          ════════════════════════════ */}
+
+      {/* Outer glow ring */}
+      <circle cx={cx} cy={cy} r={ball / 2 + 2}
+        fill="none" stroke={gold} strokeWidth="0.6" opacity="0.35" />
+
+      {/* Ball body */}
+      <circle cx={cx} cy={cy} r={ball / 2}
+        fill={`url(#${uid}-ball)`}
+        stroke={gold} strokeWidth="1.4" />
+
+      {/* Pentagon center patch */}
+      <polygon
+        points={pentagon(cx, cy, ball * 0.19)}
+        fill={gold} opacity="0.92"
+        filter={`url(#${uid}-shadow)`}
       />
-      <text
-        x={badgeX + badgeW / 2}
-        y={badgeY + badgeH * 0.73}
-        textAnchor="middle"
-        fontFamily="'Bebas Neue', 'Arial Black', Impact, sans-serif"
-        fontSize={badgeFont}
-        fontWeight="900"
-        fill={dark}
-        letterSpacing="0.5"
-      >
-        11
-      </text>
 
-      {/* ── "Onze" text ── */}
+      {/* 5 seam lines from pentagon corners to edge */}
+      {pentagonPts(cx, cy, ball * 0.19).map((pt, i) => {
+        const outer = {
+          x: cx + (ball * 0.48) * Math.cos((Math.PI * 2 * i) / 5 - Math.PI / 2),
+          y: cy + (ball * 0.48) * Math.sin((Math.PI * 2 * i) / 5 - Math.PI / 2),
+        };
+        return (
+          <line key={i}
+            x1={pt.x} y1={pt.y}
+            x2={outer.x} y2={outer.y}
+            stroke={gold} strokeWidth="0.9" opacity="0.55"
+            strokeLinecap="round"
+          />
+        );
+      })}
+
+      {/* ════════════════════════════
+          WORDMARK
+          ════════════════════════════ */}
+
+      {/* "Onze" — white/navy gradient */}
       <text
         x={textX}
-        y={cy + font * 0.35}
+        y={cy + font * 0.36}
         fontFamily="'Bebas Neue', 'Arial Black', Impact, sans-serif"
         fontSize={font}
         fontWeight="700"
-        fill={mainText}
-        letterSpacing="1"
+        fill={`url(#${uid}-onze)`}
+        letterSpacing="1.5"
+        filter={`url(#${uid}-shadow)`}
       >
         Onze
       </text>
 
-      {/* ── "Actu" text in gold ── */}
+      {/* "Actu" — gold gradient */}
       <text
-        x={textX + font * 2.6}
-        y={cy + font * 0.35}
+        x={textX + onzeWidth(font)}
+        y={cy + font * 0.36}
         fontFamily="'Bebas Neue', 'Arial Black', Impact, sans-serif"
         fontSize={font}
         fontWeight="700"
-        fill={accentText}
-        letterSpacing="1"
+        fill={`url(#${uid}-actu)`}
+        letterSpacing="1.5"
+        filter={`url(#${uid}-shadow)`}
       >
         Actu
       </text>
+
+      {/* ════════════════════════════
+          LOCALE ACCENT STRIP (flag colors)
+          ════════════════════════════ */}
+      <g opacity="0.88">
+        {strip.map((color, i) => (
+          <rect
+            key={i}
+            x={stripX + (stripW / 3) * i}
+            y={stripY}
+            width={stripW / 3}
+            height={stripH}
+            fill={color}
+            rx={i === 0 ? 1 : 0}
+            style={i === 2 ? { borderRadius: "0 1px 1px 0" } : {}}
+          />
+        ))}
+      </g>
+
+      {/* Locale label micro-text above strip */}
+      <text
+        x={stripX + stripW + 3}
+        y={stripY + stripH}
+        fontFamily="'Bebas Neue', 'Arial Black', sans-serif"
+        fontSize={sub}
+        fontWeight="700"
+        fill={gold}
+        opacity="0.75"
+        letterSpacing="0.5"
+      >
+        {isFr ? "FR" : "EN"}
+      </text>
+
+      {/* Thin separator line between ball and text */}
+      <line
+        x1={ball + 4} y1={h * 0.22}
+        x2={ball + 4} y2={h * 0.78}
+        stroke={isLight ? "rgba(255,255,255,0.25)" : "rgba(0,48,135,0.2)"}
+        strokeWidth="1"
+      />
     </svg>
   );
+}
+
+/* ── helpers ── */
+function pentagonPts(cx: number, cy: number, r: number) {
+  return Array.from({ length: 5 }, (_, i) => ({
+    x: cx + r * Math.cos((Math.PI * 2 * i) / 5 - Math.PI / 2),
+    y: cy + r * Math.sin((Math.PI * 2 * i) / 5 - Math.PI / 2),
+  }));
+}
+
+function pentagon(cx: number, cy: number, r: number): string {
+  return pentagonPts(cx, cy, r)
+    .map((p) => `${p.x},${p.y}`)
+    .join(" ");
+}
+
+// Approximate pixel width of "Onze" in Bebas Neue at given fontSize
+function onzeWidth(fontSize: number): number {
+  return fontSize * 2.52; // 4 chars × ~0.63 ratio
 }

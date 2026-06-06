@@ -7,6 +7,7 @@ import { Menu, X, Search } from "lucide-react";
 import { cn } from "@/lib/cn";
 import HeaderSearch, { HeaderSearchMobile } from "@/components/layout/HeaderSearch";
 import {
+  useLocale,
   useLocalizedPath,
   useTranslations,
 } from "@/components/providers/LocaleProvider";
@@ -17,6 +18,7 @@ export default function Header() {
   const pathname = usePathname();
   const t = useTranslations();
   const lp = useLocalizedPath();
+  const locale = useLocale();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
@@ -34,7 +36,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-primary text-white shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
         <Link href={homeHref} className="flex shrink-0 items-center">
-          <OnzeActuLogo size="md" variant="light" />
+          <OnzeActuLogo size="md" variant="light" locale={locale} />
         </Link>
 
         <Link

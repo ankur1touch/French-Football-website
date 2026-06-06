@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import {
+  useLocale,
   useLocalizedPath,
   useTranslations,
 } from "@/components/providers/LocaleProvider";
@@ -10,6 +11,7 @@ import OnzeActuLogo from "@/components/ui/OnzeActuLogo";
 export default function Footer() {
   const t = useTranslations();
   const lp = useLocalizedPath();
+  const locale = useLocale();
 
   const columns = [
     {
@@ -55,7 +57,7 @@ export default function Footer() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
             <Link href={lp()} className="flex items-center">
-              <OnzeActuLogo size="md" variant="light" />
+              <OnzeActuLogo size="md" variant="light" locale={locale} />
             </Link>
             <p className="mt-3 text-sm text-gray-400">{t.footer.tagline}</p>
           </div>

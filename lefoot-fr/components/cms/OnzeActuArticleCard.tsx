@@ -70,7 +70,7 @@ export default function OnzeActuArticleCard({
       href={href}
       className="group overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md"
     >
-      <div className="relative aspect-16/10 bg-gray-100">
+      <div className="relative aspect-[16/10] bg-gray-100">
         <SafeImage
           src={image}
           alt={article.title}
