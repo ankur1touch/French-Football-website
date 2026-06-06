@@ -58,7 +58,7 @@ export function payloadToArticleFields(payload: CmsPublishPayload) {
     body: payload.content,
     category,
     image: payload.imageUrl ?? "",
-    author: payload.author ?? "LeFootFR",
+    author: payload.author ?? "OnzeActu",
     language: payload.language,
     tags: payload.tags ?? [],
     publishedAt,

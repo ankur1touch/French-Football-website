@@ -184,7 +184,7 @@ async function fetchOgImage(url: string, timeoutMs = 2500): Promise<string | und
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     const res = await fetch(url, {
       signal: controller.signal,
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; LeFootFR/1.0)" },
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; OnzeActu/1.0)" },
     });
     clearTimeout(timer);
     if (!res.ok) return undefined;

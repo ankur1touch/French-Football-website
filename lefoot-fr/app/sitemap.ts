@@ -23,7 +23,7 @@ const STATIC_PATHS = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://lefootfr.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://onzeactu.com";
   const articles = await getAllArticles();
   const [teamIds, playerIds] = await Promise.all([listTeamIds(), listPlayerIds()]);
   const countries = getCountries();

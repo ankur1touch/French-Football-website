@@ -2,7 +2,7 @@ import { getAllArticles } from "@/lib/articles";
 
 export async function GET() {
   const articles = await getAllArticles();
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://lefootfr.com";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://onzeactu.com";
 
   const items = articles
     .slice(0, 30)
@@ -21,7 +21,7 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>LeFootFR — Actualités Football</title>
+    <title>OnzeActu — Actualités Football</title>
     <link>${siteUrl}</link>
     <description>Portail football français et africain</description>
     <language>fr</language>

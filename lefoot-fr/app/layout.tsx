@@ -17,9 +17,22 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "LeFootFR — Portail Football Français",
+  title: {
+    default: "OnzeActu — Portail Football Français",
+    template: "%s | OnzeActu",
+  },
   description:
     "Actualités, résultats en direct, classements et transferts du football français et africain.",
+  metadataBase: new URL("https://onzeactu.com"),
+  openGraph: {
+    siteName: "OnzeActu",
+    locale: "fr_FR",
+    type: "website",
+  },
+  icons: {
+    icon: "/icon",
+    apple: "/apple-icon",
+  },
 };
 
 export default function RootLayout({

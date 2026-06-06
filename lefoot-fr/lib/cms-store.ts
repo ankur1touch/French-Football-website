@@ -21,7 +21,7 @@ function mapFrontmatterToNewsItem(
     body: content,
     date: String(data.date ?? data.publishedAt ?? new Date().toISOString()),
     publishedAt: String(data.publishedAt ?? data.date ?? new Date().toISOString()),
-    author: String(data.author ?? "LeFootFR"),
+    author: String(data.author ?? "OnzeActu"),
     readTime: Number(data.readTime ?? Math.max(1, Math.ceil(content.split(/\s+/).length / 200))),
     language: (data.language as NewsItem["language"]) ?? "fr",
     tags: (data.tags as string[]) ?? [],

@@ -234,7 +234,7 @@ const fr: Dictionary = {
     tagline: "Le portail du football français et africain.",
     competitions: "Compétitions",
     franceTeam: "Équipe de France",
-    newsletterTitle: "Newsletter LeFootFR",
+    newsletterTitle: "Newsletter OnzeActu",
     newsletterDesc: "Recevez les dernières actus football directement dans votre boîte mail.",
     newsletterPlaceholder: "Votre email",
     newsletterCta: "S'inscrire",
@@ -267,7 +267,7 @@ const fr: Dictionary = {
     pollQuestion: "Qui est le meilleur joueur de la CDM 2026 ?",
     matchOfDay: "Match du jour",
     fanZoneTitle: "Zone supporters",
-    fanZoneDesc: "Rejoignez la communauté LeFootFR — sondages, débats et passion du ballon rond.",
+    fanZoneDesc: "Rejoignez la communauté OnzeActu — sondages, débats et passion du ballon rond.",
     fanZoneCta: "Participer",
     fifaRankings: "Classement FIFA",
     tournaments: "Compétitions",
@@ -346,14 +346,14 @@ const fr: Dictionary = {
     notFound: "Pays introuvable.",
   },
   staticPages: {
-    aboutTitle: "À propos de LeFootFR",
+    aboutTitle: "À propos d'OnzeActu",
     aboutBody:
-      "LeFootFR est le portail de référence pour le football français et africain, avec un focus sur la Coupe du Monde 2026.",
+      "OnzeActu est le portail de référence pour le football français et africain, avec un focus sur la Coupe du Monde 2026.",
     contactTitle: "Contact",
-    contactBody: "Pour toute demande, écrivez-nous à contact@lefootfr.com.",
+    contactBody: "Pour toute demande, écrivez-nous à contact@onzeactu.com.",
     privacyTitle: "Mentions légales",
     privacyBody:
-      "LeFootFR respecte votre vie privée. Les données collectées via la newsletter ne sont pas partagées avec des tiers.",
+      "OnzeActu respecte votre vie privée. Les données collectées via la newsletter ne sont pas partagées avec des tiers.",
     advertiseTitle: "Publicité",
     advertiseBody:
       "Intéressé par une collaboration publicitaire ? Contactez-nous pour nos offres média.",
@@ -445,7 +445,7 @@ const en: Dictionary = {
     tagline: "The French and African football portal.",
     competitions: "Competitions",
     franceTeam: "France NT",
-    newsletterTitle: "LeFootFR Newsletter",
+    newsletterTitle: "OnzeActu Newsletter",
     newsletterDesc: "Get the latest football news straight to your inbox.",
     newsletterPlaceholder: "Your email",
     newsletterCta: "Subscribe",
@@ -478,7 +478,7 @@ const en: Dictionary = {
     pollQuestion: "Who is the best player at WC 2026?",
     matchOfDay: "Match of the day",
     fanZoneTitle: "Fan zone",
-    fanZoneDesc: "Join the LeFootFR community — polls, debates, and football passion.",
+    fanZoneDesc: "Join the OnzeActu community — polls, debates, and football passion.",
     fanZoneCta: "Join in",
     fifaRankings: "FIFA rankings",
     tournaments: "Tournaments",
@@ -557,14 +557,14 @@ const en: Dictionary = {
     notFound: "Country not found.",
   },
   staticPages: {
-    aboutTitle: "About LeFootFR",
+    aboutTitle: "About OnzeActu",
     aboutBody:
-      "LeFootFR is the reference portal for French and African football, with a focus on the 2026 World Cup.",
+      "OnzeActu is the reference portal for French and African football, with a focus on the 2026 World Cup.",
     contactTitle: "Contact",
-    contactBody: "For any inquiry, write to us at contact@lefootfr.com.",
+    contactBody: "For any inquiry, write to us at contact@onzeactu.com.",
     privacyTitle: "Privacy policy",
     privacyBody:
-      "LeFootFR respects your privacy. Newsletter data is not shared with third parties.",
+      "OnzeActu respects your privacy. Newsletter data is not shared with third parties.",
     advertiseTitle: "Advertising",
     advertiseBody:
       "Interested in advertising? Contact us for our media offers.",

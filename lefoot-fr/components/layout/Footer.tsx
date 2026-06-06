@@ -5,6 +5,7 @@ import {
   useLocalizedPath,
   useTranslations,
 } from "@/components/providers/LocaleProvider";
+import OnzeActuLogo from "@/components/ui/OnzeActuLogo";
 
 export default function Footer() {
   const t = useTranslations();
@@ -53,11 +54,8 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-10">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-1">
-            <Link href={lp()} className="flex items-center gap-2">
-              <span className="text-2xl">⚽</span>
-              <span className="font-display text-2xl tracking-wider text-white">
-                LeFoot<span className="text-gold">FR</span>
-              </span>
+            <Link href={lp()} className="flex items-center">
+              <OnzeActuLogo size="md" variant="light" />
             </Link>
             <p className="mt-3 text-sm text-gray-400">{t.footer.tagline}</p>
           </div>
@@ -107,7 +105,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} LeFootFR. {t.footer.rights}
+          © {new Date().getFullYear()} OnzeActu. {t.footer.rights}
         </p>
       </div>
     </footer>

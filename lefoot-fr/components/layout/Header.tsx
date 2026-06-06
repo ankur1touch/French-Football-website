@@ -11,6 +11,7 @@ import {
   useTranslations,
 } from "@/components/providers/LocaleProvider";
 import LanguageSwitcher from "@/components/layout/LanguageSwitcher";
+import OnzeActuLogo from "@/components/ui/OnzeActuLogo";
 
 export default function Header() {
   const pathname = usePathname();
@@ -32,11 +33,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-primary text-white shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
-        <Link href={homeHref} className="flex shrink-0 items-center gap-2">
-          <span className="text-2xl">⚽</span>
-          <span className="font-display text-2xl tracking-wider">
-            LeFoot<span className="text-gold">FR</span>
-          </span>
+        <Link href={homeHref} className="flex shrink-0 items-center">
+          <OnzeActuLogo size="md" variant="light" />
         </Link>
 
         <Link

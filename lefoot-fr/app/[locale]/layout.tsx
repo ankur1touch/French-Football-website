@@ -36,13 +36,24 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   if (locale === "en") {
     return {
-      title: "LeFootFR — French Football Portal",
-      description: "News, live scores, World Cup standings, and transfers.",
+      title: "OnzeActu — French Football Portal",
+      description: "News, live scores, World Cup 2026 standings, and transfers.",
+      openGraph: {
+        title: "OnzeActu — French Football Portal",
+        description: "News, live scores, World Cup 2026 standings, and transfers.",
+        siteName: "OnzeActu",
+      },
     };
   }
   return {
-    title: "LeFootFR — Portail Football Français",
+    title: "OnzeActu — Portail Football Français",
     description:
-      "Actualités, résultats en direct, classements et transferts du football français et africain.",
+      "Actualités, résultats en direct, Coupe du Monde 2026 et transferts du football français.",
+    openGraph: {
+      title: "OnzeActu — Portail Football Français",
+      description:
+        "Actualités, résultats en direct, Coupe du Monde 2026 et transferts du football français.",
+      siteName: "OnzeActu",
+    },
   };
 }

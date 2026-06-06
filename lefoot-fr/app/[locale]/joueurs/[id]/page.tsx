@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale, id } = await params;
   return {
-    title: locale === "en" ? `Player #${id} | LeFootFR` : `Joueur #${id} | LeFootFR`,
+    title: locale === "en" ? `Player #${id} | OnzeActu` : `Joueur #${id} | OnzeActu`,
     description:
       locale === "en"
         ? "Player profile, season stats and recent matches."

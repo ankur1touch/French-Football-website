@@ -13,8 +13,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title:
       locale === "en"
-        ? `Match #${id} | LeFootFR`
-        : `Match #${id} | LeFootFR`,
+        ? `Match #${id} | OnzeActu`
+        : `Match #${id} | OnzeActu`,
     description:
       locale === "en"
         ? "Live stats, lineups and events for this match."
